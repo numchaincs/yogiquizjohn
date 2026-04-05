@@ -24,7 +24,7 @@
             -webkit-text-stroke: 2px white;
         }
         .shadow-dropdown { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        body { background-color: #fdfaf5; margin: 0; }
+        body { background-color: #fdfaf5; margin: 0; overflow-x: hidden; }
     </style>
 </head>
 <body>
@@ -47,7 +47,9 @@
 
         const IconRenderer = ({ name, className }) => {
             useEffect(() => {
-                lucide.createIcons();
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
             }, [name]);
             return <i data-lucide={name.toLowerCase()} className={className}></i>;
         };
@@ -66,7 +68,7 @@
 
         const UI_TEXT = {
             th: {
-                startBtn: "เริ่มเลย", shareFullBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อน", restartBtn: "Back to Home",
+                startBtn: "เริ่มเลย", shareFullBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อนมาเล่น", restartBtn: "Back to Home",
                 tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul",
                 desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ",
                 question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity",
@@ -74,7 +76,7 @@
                 langName: "ภาษาไทย", flag: "🇹🇭"
             },
             en: {
-                startBtn: "Start Now", shareFullBtn: "Share Result", inviteBtn: "Invite Friends", restartBtn: "Back to Home",
+                startBtn: "Start Now", shareFullBtn: "Share Result", inviteBtn: "Invite Friends to Play", restartBtn: "Back to Home",
                 tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul",
                 desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.",
                 question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity",
@@ -232,9 +234,9 @@
             }, []);
 
             return (
-                <div className="min-h-screen flex flex-col items-center overflow-x-hidden">
-                    {/* ✅ Navigation (Header) - ปรับปรุงไม่ให้ Pin Fix และขยับตามเนื้อหา */}
-                    <div className="w-full max-w-md p-4 flex justify-between items-center z-50">
+                <div className="min-h-screen flex flex-col items-center">
+                    {/* ✅ Navigation (Header) - ปรับปรุงเพิ่มพื้นหลังในหน้า Result และไม่ Pin Fix */}
+                    <div className={`w-full max-w-md p-4 flex justify-between items-center z-50 transition-all duration-500 ${step === 'result' ? 'bg-white/10 backdrop-blur-md rounded-b-3xl border-b border-white/10 shadow-sm mb-4' : ''}`}>
                         <div className={`flex items-center gap-2 ${step === 'landing' || step === 'result' ? 'text-white' : 'text-[#2c3e50]'}`}>
                             <YogaBallLogo className="w-6 h-6" />
                             <span className="text-[10px] font-black uppercase tracking-tight opacity-80">Yogi Soul Discovery</span>
@@ -336,15 +338,19 @@
                                                     "{String(result.description[lang] || "")}"
                                                 </p>
                                             </div>
-                                            {/* ✅ นำส่วน AI Generate Flow ออกแล้ว */}
                                         </div>
                                         <div className="text-center mb-8">
                                             <p className="text-white font-bold text-lg tracking-wide italic drop-shadow-lg opacity-90">{t.innerIdentity}</p>
                                         </div>
-                                        <div className="w-full grid grid-cols-2 gap-4 mb-6 px-2">
-                                            <button onClick={handleShare} className="py-4 rounded-[1.2rem] bg-white text-[#2c3e50] font-black text-base shadow-xl active:scale-95 transition-all">{t.inviteBtn}</button>
-                                            <button onClick={handleShare} className="py-4 rounded-[1.2rem] bg-[#1e293b] text-white font-black text-base shadow-xl active:scale-95 transition-all">{t.shareFullBtn}</button>
+
+                                        {/* ✅ ปรับปุ่มด้านล่างตามรูปภาพและคำขอใหม่ */}
+                                        <div className="w-full mb-6 px-2">
+                                            <button onClick={handleShare} className="w-full py-5 rounded-[2rem] bg-white text-[#2c3e50] font-black text-lg shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3">
+                                                <IconRenderer name="Share2" className="w-6 h-6 text-[#10b981]" />
+                                                {t.inviteBtn}
+                                            </button>
                                         </div>
+
                                         <button onClick={backToHome} className="text-white/60 text-sm font-bold underline mb-12 hover:text-white transition-colors">{t.restartBtn}</button>
                                         <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.3em] mb-12">{t.created}</p>
                                     </div>
