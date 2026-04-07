@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yogi Personality Quiz | Discover Your Yogi Soul</title>
+
+    <!-- Open Graph / Link Preview (Instagram, Line, Facebook, etc.) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yogiquizjohn.vercel.app/" />
     <meta property="og:title" content="Discover Your Yogi Soul 🧘" />
@@ -12,53 +14,68 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Yogi Soul Quiz by John Liz Yogi" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Discover Your Yogi Soul 🧘" />
     <meta name="twitter:description" content="ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ" />
     <meta name="twitter:image" content="https://yogiquizjohn.vercel.app/og-image.png" />
+
+    <!-- Vercel Analytics Script -->
     <script src="/_vercel/insights/script.js"></script>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM CDN -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel CDN for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * { font-family: 'Noto Sans Thai', sans-serif; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .animate-float { animation: float 3s ease-in-out infinite; }
-        .text-outline { color: transparent; -webkit-text-stroke: 2px white; }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+        }
         .shadow-dropdown { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         body { background-color: #fdfaf5; margin: 0; overflow-x: hidden; }
+        
+        /* Glassmorphism for Header - ทำให้งานดูเสร็จสมบูรณ์ */
         .glass-header {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .capture-loading {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(4px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
 <body>
     <div id="root"></div>
+
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
+        // --- COMPONENTS ---
+
         const YogaBallLogo = ({ className }) => (
-            <svg viewBox="0 0 1115 1095" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-                <path d="M515.273 0.949963C459.873 4.14997 407.873 14.95 355.473 34.15C329.273 43.95 280.473 67.95 256.673 82.95C245.873 89.75 236.473 94.75 235.673 93.95C234.873 93.15 234.273 79.55 234.073 63.55C234.073 34.95 234.073 34.55 229.073 31.75C226.473 30.35 220.473 29.15 215.873 28.95C205.473 28.95 200.073 33.95 198.273 45.75C197.473 50.15 194.873 55.95 192.473 58.55C186.073 65.75 187.073 81.95 194.873 101.35C198.473 109.75 201.273 117.95 201.273 119.35C201.273 120.95 192.273 130.15 181.273 139.95C103.273 208.95 44.0734 306.35 17.0734 410.75C-24.1266 570.15 10.2734 744.15 109.073 875.75C283.273 1107.55 608.273 1163.55 850.073 1003.55C921.873 955.75 986.873 885.55 1026.67 811.75C1061.27 747.75 1080.67 687.95 1090.47 614.95C1094.47 584.75 1095.07 517.55 1091.47 486.95C1077.47 366.55 1029.07 262.15 944.673 170.35C934.873 159.55 927.073 150.55 927.473 150.15C927.873 149.75 935.273 146.35 943.673 142.15C952.073 138.15 963.273 131.55 968.673 127.55C977.673 120.55 979.073 120.15 992.273 120.35C1018.47 120.75 1056.47 131.75 1070.87 142.95C1078.07 148.75 1085.27 160.75 1085.27 167.35C1085.27 170.55 1087.87 175.35 1092.07 179.75C1103.87 192.35 1108.47 188.75 1112.47 164.35C1116.47 140.75 1113.67 128.75 1102.07 117.35C1097.07 112.75 1091.87 108.95 1090.47 108.95C1088.87 108.95 1083.07 100.55 1077.47 90.35C1064.87 67.75 1051.87 49.95 1045.47 46.55C1039.27 43.15 1023.07 43.95 1015.47 47.75C1009.07 51.15 1001.27 59.95 1001.27 64.15C1001.27 68.55 954.073 82.15 919.273 87.95C908.873 89.55 893.473 90.95 885.273 90.95C877.073 90.95 867.073 91.75 863.073 92.75C856.473 94.15 854.473 93.35 837.473 82.75C764.473 36.95 671.673 6.54997 590.873 1.94997C548.473 -0.450037 541.673 -0.450037 515.273 0.949963ZM610.273 24.15C668.273 30.95 720.873 46.35 775.273 72.35L802.273 85.35L793.473 89.15C775.073 97.15 719.073 115.55 689.873 123.15C617.273 141.75 566.073 147.95 494.473 146.35C441.673 145.35 421.873 142.95 382.273 133.55C342.473 124.15 278.073 99.35 279.873 94.15C281.073 90.35 339.073 62.15 365.273 52.55C443.273 23.95 526.273 14.35 610.273 24.15ZM822.273 97.95C826.673 100.55 828.873 102.95 827.273 102.95C821.073 102.95 787.473 121.35 774.873 131.55C764.473 139.95 758.873 142.75 749.873 144.75C724.873 150.15 660.673 167.95 628.873 178.15C565.873 198.55 541.873 210.55 523.073 230.75C510.073 244.55 507.073 245.55 473.873 248.75C426.673 253.35 385.873 268.75 364.673 290.15C358.273 296.35 345.473 311.55 336.273 323.95C326.873 336.35 317.673 347.15 316.073 347.75C311.873 349.35 302.473 343.75 298.673 336.95C287.873 318.75 263.473 248.95 257.273 219.15C252.073 193.35 252.273 188.55 258.673 178.75C262.473 172.95 264.273 167.15 264.873 159.15C265.873 146.15 263.673 140.55 252.473 127.15C248.473 122.35 245.273 117.75 245.273 116.75C245.273 115.75 249.873 111.95 255.473 108.15L265.673 101.35L287.873 112.15C329.673 132.15 383.673 147.35 436.273 154.15C467.873 158.15 537.873 158.75 572.273 155.15C607.273 151.55 649.673 143.95 686.273 134.95C719.273 126.75 779.873 107.15 799.273 98.35C813.073 91.95 812.673 91.95 822.273 97.95ZM211.673 179.95C216.873 198.55 217.673 207.35 218.073 251.15C219.073 312.95 228.273 368.15 243.473 400.95C254.673 425.35 264.473 429.95 305.273 429.95C330.473 429.95 333.473 429.35 351.273 423.35C371.073 416.35 389.673 406.95 405.473 395.75C426.673 380.95 435.873 379.35 444.073 388.95C451.273 397.75 451.873 406.75 448.273 457.95C444.073 520.75 441.273 587.75 442.673 602.15C443.473 610.35 442.673 616.95 440.473 623.95C434.473 641.15 431.073 661.35 429.273 687.95C428.473 702.15 425.273 728.35 422.473 745.95C416.673 781.15 409.873 861.35 408.073 912.95C406.473 960.95 407.473 958.35 393.673 960.95C353.073 968.95 309.673 981.95 285.473 993.55L274.873 998.75L259.473 988.55C251.073 982.95 243.873 977.95 243.273 977.35C242.673 976.95 245.473 974.15 249.273 971.15C308.473 925.95 348.473 864.95 362.673 798.15C367.473 776.15 367.273 728.55 362.473 704.35C352.273 651.95 324.873 597.15 281.873 542.95C238.873 488.95 142.873 404.55 69.8734 356.75C64.0734 352.95 59.2734 348.95 59.2734 347.75C59.2734 346.55 66.6734 330.75 75.8734 312.75C103.873 256.75 133.673 215.95 179.073 170.95L206.273 143.95L207.473 155.95C208.073 162.55 210.073 173.35 211.673 179.95ZM923.873 178.95C934.473 189.75 949.673 207.15 957.873 217.35C972.873 235.75 999.273 274.15 999.273 276.95C999.273 277.95 994.473 279.75 988.873 280.95C968.873 285.75 938.273 297.35 916.873 308.35C839.273 347.95 790.273 411.95 776.273 491.95C757.473 599.95 800.273 743.35 898.673 901.75L913.473 925.55L908.873 930.35C901.873 937.95 866.473 966.75 851.673 977.15L838.473 986.35L828.473 983.75C822.873 982.15 800.273 977.35 778.273 972.75C756.473 968.35 735.273 962.95 731.273 960.95C716.673 953.55 717.273 957.35 716.473 879.75C715.873 822.75 715.273 807.35 712.473 795.95C709.673 784.55 708.873 769.75 708.473 714.95C707.873 643.55 706.873 634.15 695.673 601.95C693.273 595.35 685.073 566.15 677.273 536.95C654.473 451.55 628.473 378.55 615.873 363.15C612.073 358.55 612.073 357.55 614.673 347.15C617.473 336.35 624.473 321.15 629.873 314.75C631.273 312.75 641.473 306.15 652.273 299.95C692.473 276.75 720.273 255.15 725.273 243.15C727.273 238.15 730.273 236.35 745.873 230.95C782.873 218.35 817.073 198.75 826.073 185.35C829.273 180.55 832.673 178.95 848.073 175.15C858.073 172.75 874.473 168.15 884.273 164.95C894.273 161.75 902.873 159.15 903.473 159.15C904.273 158.95 913.473 167.95 923.873 178.95ZM1018.07 310.35C1071.67 417.55 1087.27 537.95 1063.07 655.95C1044.67 744.95 998.473 834.35 935.073 903.75C929.473 909.95 924.073 914.95 923.273 914.95C920.473 914.95 883.473 851.95 864.073 813.95C825.273 738.55 802.073 675.15 790.473 613.75C786.073 590.35 782.673 545.95 784.273 533.35C785.473 523.55 786.073 522.35 791.873 520.35C804.073 516.15 848.873 493.35 867.273 481.75C941.873 435.75 991.673 369.95 1003.47 301.95C1004.67 294.75 1006.07 288.95 1006.47 288.95C1006.87 288.95 1012.07 298.55 1018.07 310.35ZM987.273 316.35C967.073 389.75 902.473 455.35 806.473 499.95L786.673 509.15L788.073 498.35C791.473 468.75 811.473 420.55 831.073 394.75C844.873 376.75 873.073 350.15 892.273 337.35C913.473 323.15 943.473 308.75 969.273 300.15C994.073 291.75 994.073 291.75 987.273 316.35ZM118.273 407.55C158.873 438.15 186.873 462.35 222.273 497.95C259.073 534.55 275.673 554.15 297.473 586.75C311.273 607.15 327.673 637.55 335.073 656.55L338.873 665.95L322.873 683.95C269.273 744.35 236.273 806.15 226.073 864.95C222.073 888.55 223.073 939.95 227.873 956.95C229.473 962.95 230.673 968.15 230.473 968.35C229.273 969.55 185.273 930.35 169.273 913.75C129.673 872.75 100.873 831.95 75.4734 780.75C13.4734 656.35 3.27347 516.55 46.2734 383.35L53.4734 361.15L73.8734 375.35C85.0734 383.15 105.073 397.75 118.273 407.55ZM623.073 653.35C627.673 660.35 633.673 668.95 636.273 672.75C643.273 682.35 647.073 696.35 649.273 720.95C651.273 743.75 657.473 771.55 662.473 781.15C665.273 786.55 665.273 789.95 663.273 808.95C659.873 839.55 661.673 882.35 667.073 898.55C673.673 918.75 671.673 951.75 663.473 953.35C661.673 953.75 654.073 953.35 646.273 952.55C607.273 948.35 543.673 946.75 501.673 948.95C477.873 950.15 456.473 951.35 454.273 951.55C451.473 951.95 449.673 949.95 447.673 943.95C445.273 936.75 445.473 932.55 450.073 904.95C457.073 862.35 459.273 844.95 459.273 829.75C459.273 820.95 461.273 809.95 466.073 794.35C475.273 764.15 479.273 742.55 480.673 715.95C481.673 695.15 482.273 693.15 488.873 681.95C500.473 662.75 518.673 644.95 527.273 644.95C528.473 644.95 529.273 649.75 529.273 656.55C529.273 666.35 528.673 668.35 524.873 669.95C517.873 673.15 516.073 677.75 518.873 685.55C520.273 689.15 521.273 697.75 521.273 704.75C521.273 711.55 522.673 720.35 524.473 724.55C534.473 748.75 570.473 764.15 590.073 752.55C602.073 745.55 608.073 732.35 608.873 710.95C609.273 701.55 610.873 691.15 612.473 687.55C616.073 679.75 615.873 673.35 612.273 666.95C609.273 661.75 608.273 644.75 610.673 642.35C613.273 639.55 615.073 641.15 623.073 653.35ZM348.073 696.75C364.673 769.55 349.073 837.15 301.273 900.55C290.073 915.35 243.873 962.15 242.073 960.35C239.273 957.75 235.273 925.35 235.273 906.75C235.273 845.55 261.873 779.75 312.073 716.95C326.873 698.55 341.273 682.95 343.473 682.95C344.273 682.95 346.273 689.15 348.073 696.75ZM662.273 964.75C726.073 972.55 826.473 991.35 824.073 995.15C823.673 995.95 814.073 1001.75 802.873 1007.95C744.673 1039.75 687.673 1058.95 620.273 1069.35C597.873 1072.75 583.273 1073.55 547.273 1073.55C511.273 1073.55 496.673 1072.75 474.273 1069.35C411.073 1059.55 347.073 1038.75 299.273 1012.35C284.873 1004.15 284.073 1005.15 312.873 993.95C347.273 980.75 406.073 967.75 452.273 963.15C464.473 961.95 477.073 960.55 480.273 960.15C483.673 959.75 517.873 959.55 556.273 959.95C613.273 960.35 633.073 961.35 662.273 964.75Z" fill="white"/>
-            </svg>
-        );
+    <svg viewBox="0 0 1115 1095" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+        <path d="M515.273 0.949963C459.873 4.14997 407.873 14.95 355.473 34.15C329.273 43.95 280.473 67.95 256.673 82.95C245.873 89.75 236.473 94.75 235.673 93.95C234.873 93.15 234.273 79.55 234.073 63.55C234.073 34.95 234.073 34.55 229.073 31.75C226.473 30.35 220.473 29.15 215.873 28.95C205.473 28.95 200.073 33.95 198.273 45.75C197.473 50.15 194.873 55.95 192.473 58.55C186.073 65.75 187.073 81.95 194.873 101.35C198.473 109.75 201.273 117.95 201.273 119.35C201.273 120.95 192.273 130.15 181.273 139.95C103.273 208.95 44.0734 306.35 17.0734 410.75C-24.1266 570.15 10.2734 744.15 109.073 875.75C283.273 1107.55 608.273 1163.55 850.073 1003.55C921.873 955.75 986.873 885.55 1026.67 811.75C1061.27 747.75 1080.67 687.95 1090.47 614.95C1094.47 584.75 1095.07 517.55 1091.47 486.95C1077.47 366.55 1029.07 262.15 944.673 170.35C934.873 159.55 927.073 150.55 927.473 150.15C927.873 149.75 935.273 146.35 943.673 142.15C952.073 138.15 963.273 131.55 968.673 127.55C977.673 120.55 979.073 120.15 992.273 120.35C1018.47 120.75 1056.47 131.75 1070.87 142.95C1078.07 148.75 1085.27 160.75 1085.27 167.35C1085.27 170.55 1087.87 175.35 1092.07 179.75C1103.87 192.35 1108.47 188.75 1112.47 164.35C1116.47 140.75 1113.67 128.75 1102.07 117.35C1097.07 112.75 1091.87 108.95 1090.47 108.95C1088.87 108.95 1083.07 100.55 1077.47 90.35C1064.87 67.75 1051.87 49.95 1045.47 46.55C1039.27 43.15 1023.07 43.95 1015.47 47.75C1009.07 51.15 1001.27 59.95 1001.27 64.15C1001.27 68.55 954.073 82.15 919.273 87.95C908.873 89.55 893.473 90.95 885.273 90.95C877.073 90.95 867.073 91.75 863.073 92.75C856.473 94.15 854.473 93.35 837.473 82.75C764.473 36.95 671.673 6.54997 590.873 1.94997C548.473 -0.450037 541.673 -0.450037 515.273 0.949963ZM610.273 24.15C668.273 30.95 720.873 46.35 775.273 72.35L802.273 85.35L793.473 89.15C775.073 97.15 719.073 115.55 689.873 123.15C617.273 141.75 566.073 147.95 494.473 146.35C441.673 145.35 421.873 142.95 382.273 133.55C342.473 124.15 278.073 99.35 279.873 94.15C281.073 90.35 339.073 62.15 365.273 52.55C443.273 23.95 526.273 14.35 610.273 24.15ZM822.273 97.95C826.673 100.55 828.873 102.95 827.273 102.95C821.073 102.95 787.473 121.35 774.873 131.55C764.473 139.95 758.873 142.75 749.873 144.75C724.873 150.15 660.673 167.95 628.873 178.15C565.873 198.55 541.873 210.55 523.073 230.75C510.073 244.55 507.073 245.55 473.873 248.75C426.673 253.35 385.873 268.75 364.673 290.15C358.273 296.35 345.473 311.55 336.273 323.95C326.873 336.35 317.673 347.15 316.073 347.75C311.873 349.35 302.473 343.75 298.673 336.95C287.873 318.75 263.473 248.95 257.273 219.15C252.073 193.35 252.273 188.55 258.673 178.75C262.473 172.95 264.273 167.15 264.873 159.15C265.873 146.15 263.673 140.55 252.473 127.15C248.473 122.35 245.273 117.75 245.273 116.75C245.273 115.75 249.873 111.95 255.473 108.15L265.673 101.35L287.873 112.15C329.673 132.15 383.673 147.35 436.273 154.15C467.873 158.15 537.873 158.75 572.273 155.15C607.273 151.55 649.673 143.95 686.273 134.95C719.273 126.75 779.873 107.15 799.273 98.35C813.073 91.95 812.673 91.95 822.273 97.95ZM211.673 179.95C216.873 198.55 217.673 207.35 218.073 251.15C219.073 312.95 228.273 368.15 243.473 400.95C254.673 425.35 264.473 429.95 305.273 429.95C330.473 429.95 333.473 429.35 351.273 423.35C371.073 416.35 389.673 406.95 405.473 395.75C426.673 380.95 435.873 379.35 444.073 388.95C451.273 397.75 451.873 406.75 448.273 457.95C444.073 520.75 441.273 587.75 442.673 602.15C443.473 610.35 442.673 616.95 440.473 623.95C434.473 641.15 431.073 661.35 429.273 687.95C428.473 702.15 425.273 728.35 422.473 745.95C416.673 781.15 409.873 861.35 408.073 912.95C406.473 960.95 407.473 958.35 393.673 960.95C353.073 968.95 309.673 981.95 285.473 993.55L274.873 998.75L259.473 988.55C251.073 982.95 243.873 977.95 243.273 977.35C242.673 976.95 245.473 974.15 249.273 971.15C308.473 925.95 348.473 864.95 362.673 798.15C367.473 776.15 367.273 728.55 362.473 704.35C352.273 651.95 324.873 597.15 281.873 542.95C238.873 488.95 142.873 404.55 69.8734 356.75C64.0734 352.95 59.2734 348.95 59.2734 347.75C59.2734 346.55 66.6734 330.75 75.8734 312.75C103.873 256.75 133.673 215.95 179.073 170.95L206.273 143.95L207.473 155.95C208.073 162.55 210.073 173.35 211.673 179.95ZM923.873 178.95C934.473 189.75 949.673 207.15 957.873 217.35C972.873 235.75 999.273 274.15 999.273 276.95C999.273 277.95 994.473 279.75 988.873 280.95C968.873 285.75 938.273 297.35 916.873 308.35C839.273 347.95 790.273 411.95 776.273 491.95C757.473 599.95 800.273 743.35 898.673 901.75L913.473 925.55L908.873 930.35C901.873 937.95 866.473 966.75 851.673 977.15L838.473 986.35L828.473 983.75C822.873 982.15 800.273 977.35 778.273 972.75C756.473 968.35 735.273 962.95 731.273 960.95C716.673 953.55 717.273 957.35 716.473 879.75C715.873 822.75 715.273 807.35 712.473 795.95C709.673 784.55 708.873 769.75 708.473 714.95C707.873 643.55 706.873 634.15 695.673 601.95C693.273 595.35 685.073 566.15 677.273 536.95C654.473 451.55 628.473 378.55 615.873 363.15C612.073 358.55 612.073 357.55 614.673 347.15C617.473 336.35 624.473 321.15 629.873 314.75C631.273 312.75 641.473 306.15 652.273 299.95C692.473 276.75 720.273 255.15 725.273 243.15C727.273 238.15 730.273 236.35 745.873 230.95C782.873 218.35 817.073 198.75 826.073 185.35C829.273 180.55 832.673 178.95 848.073 175.15C858.073 172.75 874.473 168.15 884.273 164.95C894.273 161.75 902.873 159.15 903.473 159.15C904.273 158.95 913.473 167.95 923.873 178.95ZM1018.07 310.35C1071.67 417.55 1087.27 537.95 1063.07 655.95C1044.67 744.95 998.473 834.35 935.073 903.75C929.473 909.95 924.073 914.95 923.273 914.95C920.473 914.95 883.473 851.95 864.073 813.95C825.273 738.55 802.073 675.15 790.473 613.75C786.073 590.35 782.673 545.95 784.273 533.35C785.473 523.55 786.073 522.35 791.873 520.35C804.073 516.15 848.873 493.35 867.273 481.75C941.873 435.75 991.673 369.95 1003.47 301.95C1004.67 294.75 1006.07 288.95 1006.47 288.95C1006.87 288.95 1012.07 298.55 1018.07 310.35ZM987.273 316.35C967.073 389.75 902.473 455.35 806.473 499.95L786.673 509.15L788.073 498.35C791.473 468.75 811.473 420.55 831.073 394.75C844.873 376.75 873.073 350.15 892.273 337.35C913.473 323.15 943.473 308.75 969.273 300.15C994.073 291.75 994.073 291.75 987.273 316.35ZM118.273 407.55C158.873 438.15 186.873 462.35 222.273 497.95C259.073 534.55 275.673 554.15 297.473 586.75C311.273 607.15 327.673 637.55 335.073 656.55L338.873 665.95L322.873 683.95C269.273 744.35 236.273 806.15 226.073 864.95C222.073 888.55 223.073 939.95 227.873 956.95C229.473 962.95 230.673 968.15 230.473 968.35C229.273 969.55 185.273 930.35 169.273 913.75C129.673 872.75 100.873 831.95 75.4734 780.75C13.4734 656.35 3.27347 516.55 46.2734 383.35L53.4734 361.15L73.8734 375.35C85.0734 383.15 105.073 397.75 118.273 407.55ZM623.073 653.35C627.673 660.35 633.673 668.95 636.273 672.75C643.273 682.35 647.073 696.35 649.273 720.95C651.273 743.75 657.473 771.55 662.473 781.15C665.273 786.55 665.273 789.95 663.273 808.95C659.873 839.55 661.673 882.35 667.073 898.55C673.673 918.75 671.673 951.75 663.473 953.35C661.673 953.75 654.073 953.35 646.273 952.55C607.273 948.35 543.673 946.75 501.673 948.95C477.873 950.15 456.473 951.35 454.273 951.55C451.473 951.95 449.673 949.95 447.673 943.95C445.273 936.75 445.473 932.55 450.073 904.95C457.073 862.35 459.273 844.95 459.273 829.75C459.273 820.95 461.273 809.95 466.073 794.35C475.273 764.15 479.273 742.55 480.673 715.95C481.673 695.15 482.273 693.15 488.873 681.95C500.473 662.75 518.673 644.95 527.273 644.95C528.473 644.95 529.273 649.75 529.273 656.55C529.273 666.35 528.673 668.35 524.873 669.95C517.873 673.15 516.073 677.75 518.873 685.55C520.273 689.15 521.273 697.75 521.273 704.75C521.273 711.55 522.673 720.35 524.473 724.55C534.473 748.75 570.473 764.15 590.073 752.55C602.073 745.55 608.073 732.35 608.873 710.95C609.273 701.55 610.873 691.15 612.473 687.55C616.073 679.75 615.873 673.35 612.273 666.95C609.273 661.75 608.273 644.75 610.673 642.35C613.273 639.55 615.073 641.15 623.073 653.35ZM348.073 696.75C364.673 769.55 349.073 837.15 301.273 900.55C290.073 915.35 243.873 962.15 242.073 960.35C239.273 957.75 235.273 925.35 235.273 906.75C235.273 845.55 261.873 779.75 312.073 716.95C326.873 698.55 341.273 682.95 343.473 682.95C344.273 682.95 346.273 689.15 348.073 696.75ZM662.273 964.75C726.073 972.55 826.473 991.35 824.073 995.15C823.673 995.95 814.073 1001.75 802.873 1007.95C744.673 1039.75 687.673 1058.95 620.273 1069.35C597.873 1072.75 583.273 1073.55 547.273 1073.55C511.273 1073.55 496.673 1072.75 474.273 1069.35C411.073 1059.55 347.073 1038.75 299.273 1012.35C284.873 1004.15 284.073 1005.15 312.873 993.95C347.273 980.75 406.073 967.75 452.273 963.15C464.473 961.95 477.073 960.55 480.273 960.15C483.673 959.75 517.873 959.55 556.273 959.95C613.273 960.35 633.073 961.35 662.273 964.75Z" fill="white"/>
+    </svg>
+);
 
         const IconRenderer = ({ name, className }) => {
-            useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [name]);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
             return <i data-lucide={name.toLowerCase()} className={className}></i>;
         };
 
@@ -72,68 +89,122 @@
             </div>
         );
 
+        // --- DATA ---
+
         const UI_TEXT = {
             th: {
-                startBtn: "เริ่มเลย",
-                shareStoryBtn: "แชร์ผลลัพธ์",
-                inviteBtn: "ชวนเพื่อนมาเล่น",
-                restartBtn: "Back to Home",
-                tagline: "PERSONALITY QUIZ GAME",
-                titlePrefix: "Discover Your",
-                titleMain: "Yogi Soul",
+                startBtn: "เริ่มเลย", inviteBtn: "ชวนเพื่อนมาเล่น", restartBtn: "Back to Home",
+                tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul",
                 desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ",
-                question: "คำถาม",
-                soulTypeLabel: "ตัวตนของคุณคือ...",
-                innerIdentity: "Your Inner Spiritual Identity",
-                created: "Created by JOHN LIZ YOGI",
-                analysis: "8 Personality Analysis Questions",
-                copied: "คัดลอกลิงก์เรียบร้อย!",
-                capturing: "กำลังสร้างรูปภาพ...",
-                langName: "ภาษาไทย",
-                flag: "🇹🇭"
+                question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "คัดลอกลิงก์เรียบร้อย!",
+                langName: "ภาษาไทย", flag: "🇹🇭"
             },
             en: {
-                startBtn: "Start Now",
-                shareStoryBtn: "Share Result",
-                inviteBtn: "Invite Friends",
-                restartBtn: "Back to Home",
-                tagline: "PERSONALITY QUIZ GAME",
-                titlePrefix: "Discover Your",
-                titleMain: "Yogi Soul",
+                startBtn: "Start Now", inviteBtn: "Invite Friends to Play", restartBtn: "Back to Home",
+                tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul",
                 desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.",
-                question: "Question",
-                soulTypeLabel: "Your Soul Type is...",
-                innerIdentity: "Your Inner Spiritual Identity",
-                created: "Created by JOHN LIZ YOGI",
-                analysis: "8 Personality Analysis Questions",
-                copied: "Link copied!",
-                capturing: "Creating image...",
-                langName: "English",
-                flag: "🇺🇸"
+                question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "Link copied!",
+                langName: "English", flag: "🇺🇸"
             }
         };
 
         const QUESTIONS = [
-            { id: 1, question: { th: "ช่วงเวลาที่คุณชอบฝึกโยคะมากที่สุดคือช่วงไหน?", en: "When is your ideal time to flow?" }, options: [ { text: { th: "เช้าตรู่ รับแสงอาทิตย์", en: "At dawn, embracing the sunrise" }, score: { warrior: 2, traditionalist: 2 } }, { text: { th: "ช่วงสายๆ หรือบ่ายที่พอมีพลัง", en: "Midday when energy peaks" }, score: { nature: 2, social: 2 } }, { text: { th: "ช่วงเย็นหลังเลิกงาน", en: "Evening to decompress" }, score: { explorer: 2, healing: 2 } }, { text: { th: "ก่อนนอน เพื่อความผ่อนคลาย", en: "Before bed for deep rest" }, score: { zen: 2, spiritual: 2 } } ] },
-            { id: 2, question: { th: "สถานที่ฝึกในฝันของคุณเป็นแบบไหน?", en: "What is your dream practice sanctuary?" }, options: [ { text: { th: "สตูดิโอมินิมอล แสงสวยๆ", en: "Minimalist studio with natural light" }, score: { explorer: 2, traditionalist: 1 } }, { text: { th: "กลางสวนหรือริมทะเล", en: "In a garden or by the ocean" }, score: { nature: 3 } }, { text: { th: "ที่บ้าน พื้นที่ส่วนตัว", en: "In my private space at home" }, score: { zen: 2, healing: 1 } }, { text: { th: "ฟิตเนสที่มีอุปกรณ์ครบครัน", en: "A fully equipped high-energy gym" }, score: { warrior: 2, social: 1 } } ] },
-            { id: 3, question: { th: "เป้าหมายหลักที่คุณเลือกเล่นโยคะคืออะไร?", en: "What is the primary goal of your practice?" }, options: [ { text: { th: "สร้างความแข็งแรงของกล้ามเนื้อ", en: "Building raw physical strength" }, score: { warrior: 3 } }, { text: { th: "บำบัดจิตใจและคลายเครียด", en: "Mental healing and stress relief" }, score: { healing: 3 } }, { text: { th: "เพิ่มความยืดหยุ่นให้ร่างกาย", en: "Gaining flexibility and mobility" }, score: { traditionalist: 2, nature: 1 } }, { text: { th: "ลองอะไรใหม่ๆ ท้าทายตัวเอง", en: "Challenging my limits and curiosity" }, score: { explorer: 2, social: 1 } } ] },
-            { id: 4, question: { th: "เมื่อเจอท่าที่ยากและท้าทาย คุณมักจะ...", en: "How do you react to a difficult pose?" }, options: [ { text: { th: "สู้ไม่ถอย จนกว่าจะทำได้", en: "Hold it with determination" }, score: { warrior: 2, traditionalist: 1 } }, { text: { th: "ค่อยๆ พยายามตามที่ไหว", en: "Ease in as much as I can" }, score: { nature: 2, zen: 1 } }, { text: { th: "หาเพื่อนช่วยซัพพอร์ต", en: "Ask a friend for support" }, score: { social: 3 } }, { text: { th: "ใช้พร็อพช่วยเพื่อให้ท่าสมบูรณ์", en: "Use props for perfect alignment" }, score: { traditionalist: 2, healing: 1 } } ] },
-            { id: 5, question: { th: "ประเภทของเพลงที่คุณชอบเปิดตอนฝึก?", en: "What's the soundtrack to your flow?" }, options: [ { text: { th: "เสียงธรรมชาติ น้ำไหล นกร้อง", en: "Ambient nature (water, birds)" }, score: { nature: 2, zen: 1 } }, { text: { th: "เสียงสวดมนต์หรือ Singing Bowl", en: "Chanting or Singing Bowls" }, score: { spiritual: 3 } }, { text: { th: "เพลงจังหวะสนุกสนาน ปลุกพลัง", en: "Upbeat and energizing rhythms" }, score: { explorer: 2, social: 1 } }, { text: { th: "ความเงียบคือสิ่งที่ดีที่สุด", en: "Silence is the best" }, score: { zen: 2, nature: 1, traditionalist: 2 } } ] },
-            { id: 6, question: { th: "สีของชุดโยคะหรือเสื่อที่คุณมักจะเลือกใช้?", en: "What colors dominate your yoga gear?" }, options: [ { text: { th: "สีเอิร์ธโทน น้ำตาล เขียวขี้ม้า", en: "Earth tones (Brown, Olive)" }, score: { nature: 2, spiritual: 1 } }, { text: { th: "สีขาว ครีม หรือสีพาสเทล", en: "White, Cream, or soft Pastels" }, score: { zen: 2, healing: 1 } }, { text: { th: "สีสันสดใส โดดเด่น", en: "Bright, bold, and vibrant colors" }, score: { explorer: 2, social: 1 } }, { text: { th: "สีดำ หรือสีเข้มๆ เท่ๆ", en: "Sleek black or dark aesthetics" }, score: { warrior: 2, traditionalist: 1 } } ] },
-            { id: 7, question: { th: "ท่าโยคะที่คุณรู้สึก 'ใช่' ที่ที่สุด?", en: "Which yoga pose feels most like 'You'?" }, options: [ { text: { th: "Savasana (ท่าศพ) - พักผ่อน", en: "Savasana - The ultimate rest" }, score: { healing: 3 } }, { text: { th: "Warrior Pose - พลังมาเต็ม", en: "Warrior Pose - Pure strength" }, score: { warrior: 2, traditionalist: 1 } }, { text: { th: "Tree Pose - สมดุลและนิ่ง", en: "Tree Pose - Balance and roots" }, score: { nature: 2, zen: 1 } }, { text: { th: "Partner Poses - ฝึกกับเพื่อน", en: "Partner Poses - Shared energy" }, score: { social: 3 } } ] },
-            { id: 8, question: { th: "หลังจบ Class คุณอยากรู้สึกอย่างไรมากที่สุด?", en: "What's the desired feeling after practice?" }, options: [ { text: { th: "สงบ นิ่ง เหมือนได้ล้างใจ", en: "A cleared and peaceful mind" }, score: { zen: 2, spiritual: 1 } }, { text: { th: "สะใจ เหงื่อท่วม ได้ออกแรง", en: "Satisfied, sweaty, and energized" }, score: { warrior: 2, explorer: 1 } }, { text: { th: "รู้สึกเป็นส่วนหนึ่งของกลุ่ม", en: "Connected to the community" }, score: { social: 3 } }, { text: { th: "ร่างกายได้รับการเยียวยา", en: "Deeply healed and restored" }, score: { healing: 2, traditionalist: 1 } } ] }
+            {
+                id: 1,
+                question: { th: "ช่วงเวลาที่คุณชอบฝึกโยคะมากที่สุดคือช่วงไหน?", en: "When is your ideal time to flow?" },
+                options: [
+                    { text: { th: "เช้าตรู่ รับแสงอาทิตย์", en: "At dawn, embracing the sunrise" }, score: { warrior: 2, traditionalist: 2 } },
+                    { text: { th: "ช่วงสายๆ หรือบ่ายที่พอมีพลัง", en: "Midday when energy peaks" }, score: { nature: 2, social: 2 } },
+                    { text: { th: "ช่วงเย็นหลังเลิกงาน", en: "Evening to decompress" }, score: { explorer: 2, healing: 2 } },
+                    { text: { th: "ก่อนนอน เพื่อความผ่อนคลาย", en: "Before bed for deep rest" }, score: { zen: 2, spiritual: 2 } }
+                ]
+            },
+            {
+                id: 2,
+                question: { th: "สถานที่ฝึกในฝันของคุณเป็นแบบไหน?", en: "What is your dream practice sanctuary?" },
+                options: [
+                    { text: { th: "สตูดิโอมินิมอล แสงสวยๆ", en: "Minimalist studio with natural light" }, score: { explorer: 2, traditionalist: 1 } },
+                    { text: { th: "กลางสวนหรือริมทะเล", en: "In a garden or by the ocean" }, score: { nature: 3 } },
+                    { text: { th: "ที่บ้าน พื้นที่ส่วนตัว", en: "In my private space at home" }, score: { zen: 2, healing: 1 } },
+                    { text: { th: "ฟิตเนสที่มีอุปกรณ์ครบครัน", en: "A fully equipped high-energy gym" }, score: { warrior: 2, social: 1 } }
+                ]
+            },
+            {
+                id: 3,
+                question: { th: "เป้าหมายหลักที่คุณเลือกเล่นโยคะคืออะไร?", en: "What is the primary goal of your practice?" },
+                options: [
+                    { text: { th: "สร้างความแข็งแรงของกล้ามเนื้อ", en: "Building raw physical strength" }, score: { warrior: 3 } },
+                    { text: { th: "บำบัดจิตใจและคลายเครียด", en: "Mental healing and stress relief" }, score: { healing: 3 } },
+                    { text: { th: "เพิ่มความยืดหยุ่นให้ร่างกาย", en: "Gaining flexibility and mobility" }, score: { traditionalist: 2, nature: 1 } },
+                    { text: { th: "ลองอะไรใหม่ๆ ท้าทายตัวเอง", en: "Challenging my limits and curiosity" }, score: { explorer: 2, social: 1 } }
+                ]
+            },
+            {
+                id: 4,
+                question: { th: "เมื่อเจอท่าที่ยากและท้าทาย คุณมักจะ...", en: "How do you react to a difficult pose?" },
+                options: [
+                    { text: { th: "สู้ไม่ถอย จนกว่าจะทำได้", en: "Hold it with determination" }, score: { warrior: 2, traditionalist: 1 } },
+                    { text: { th: "ค่อยๆ พยายามตามที่ไหว", en: "Ease in as much as I can" }, score: { nature: 2, zen: 1 } },
+                    { text: { th: "หาเพื่อนช่วยซัพพอร์ต", en: "Ask a friend for support" }, score: { social: 3 } },
+                    { text: { th: "ใช้พร็อพช่วยเพื่อให้ท่าสมบูรณ์", en: "Use props for perfect alignment" }, score: { traditionalist: 2, healing: 1 } }
+                ]
+            },
+            {
+                id: 5,
+                question: { th: "ประเภทของเพลงที่คุณชอบเปิดตอนฝึก?", en: "What's the soundtrack to your flow?" },
+                options: [
+                    { text: { th: "เสียงธรรมชาติ น้ำไหล นกร้อง", en: "Ambient nature (water, birds)" }, score: { nature: 2, zen: 1 } },
+                    { text: { th: "เสียงสวดมนต์หรือ Singing Bowl", en: "Chanting or Singing Bowls" }, score: { spiritual: 3 } },
+                    { text: { th: "เพลงจังหวะสนุกสนาน ปลุกพลัง", en: "Upbeat and energizing rhythms" }, score: { explorer: 2, social: 1 } },
+                    { text: { th: "ความเงียบคือสิ่งที่ดีที่สุด", en: "Silence is the best" }, score: { zen: 2, nature: 1, traditionalist: 2 } }
+                ]
+            },
+            {
+                id: 6,
+                question: { th: "สีของชุดโยคะหรือเสื่อที่คุณมักจะเลือกใช้?", en: "What colors dominate your yoga gear?" },
+                options: [
+                    { text: { th: "สีเอิร์ธโทน น้ำตาล เขียวขี้ม้า", en: "Earth tones (Brown, Olive)" }, score: { nature: 2, spiritual: 1 } },
+                    { text: { th: "สีขาว ครีม หรือสีพาสเทล", en: "White, Cream, or soft Pastels" }, score: { zen: 2, healing: 1 } },
+                    { text: { th: "สีสันสดใส โดดเด่น", en: "Bright, bold, and vibrant colors" }, score: { explorer: 2, social: 1 } },
+                    { text: { th: "สีดำ หรือสีเข้มๆ เท่ๆ", en: "Sleek black or dark aesthetics" }, score: { warrior: 2, traditionalist: 1 } }
+                ]
+            },
+            {
+                id: 7,
+                question: { th: "ท่าโยคะที่คุณรู้สึก 'ใช่' ที่ที่สุด?", en: "Which yoga pose feels most like 'You'?" },
+                options: [
+                    { text: { th: "Savasana (ท่าศพ) - พักผ่อน", en: "Savasana - The ultimate rest" }, score: { healing: 3 } },
+                    { text: { th: "Warrior Pose - พลังมาเต็ม", en: "Warrior Pose - Pure strength" }, score: { warrior: 2, traditionalist: 1 } },
+                    { text: { th: "Tree Pose - สมดุลและนิ่ง", en: "Tree Pose - Balance and roots" }, score: { nature: 2, zen: 1 } },
+                    { text: { th: "Partner Poses - ฝึกกับเพื่อน", en: "Partner Poses - Shared energy" }, score: { social: 3 } }
+                ]
+            },
+            {
+                id: 8,
+                question: { th: "หลังจบ Class คุณอยากรู้สึกอย่างไรมากที่สุด?", en: "What's the desired feeling after practice?" },
+                options: [
+                    { text: { th: "สงบ นิ่ง เหมือนได้ล้างใจ", en: "A cleared and peaceful mind" }, score: { zen: 2, spiritual: 1 } },
+                    { text: { th: "สะใจ เหงื่อท่วม ได้ออกแรง", en: "Satisfied, sweaty, and energized" }, score: { warrior: 2, explorer: 1 } },
+                    { text: { th: "รู้สึกเป็นส่วนหนึ่งของกลุ่ม", en: "Connected to the community" }, score: { social: 3 } },
+                    { text: { th: "ร่างกายได้รับการเยียวยา", en: "Deeply healed and restored" }, score: { healing: 2, traditionalist: 1 } }
+                ]
+            }
         ];
 
         const RESULTS = {
-            zen:            { id: 'zen',            title: { th: "The Zen Master",                  en: "The Zen Master" },                  subtitle: { th: "ผู้แสวงหาความสงบภายใน",      en: "The Inner Peace Seeker" },    bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", bgCapture: "linear-gradient(to bottom, #4f46e5, #7c3aed, #a855f7)", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง การฝึกของคุณเปรียบเสมือนการทำสมาธิที่เคลื่อนไหวได้",                                   en: "You prioritize breath and mindfulness above all. Your practice is a moving meditation focusing on serenity." },           iconName: "Moon",     iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
-            warrior:        { id: 'warrior',        title: { th: "The Power Warrior",               en: "The Power Warrior" },               subtitle: { th: "นักรบผู้แข็งแกร่ง",           en: "The Strength Warrior" },      bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", bgCapture: "linear-gradient(to bottom, #f97316, #ea580c, #dc2626)", description: { th: "คุณรักความท้าทายและการมีวินัย การฝึกโยคะของคุณคือการสร้างพลังงานและการก้าวข้ามขีดจำกัดของร่างกาย",                                                  en: "You thrive on challenge and discipline, pushing physical boundaries to build raw energy." },                             iconName: "Flame",    iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
-            nature:         { id: 'nature',         title: { th: "The Nature Seeker",               en: "The Nature Seeker" },               subtitle: { th: "ผู้หลงรักธรรมชาติ",           en: "The Earth-Bound Yogi" },      bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", bgCapture: "linear-gradient(to bottom, #10b981, #059669, #047857)", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบความรู้สึกที่เท้าสัมผัสพื้นหญ้าและลมหายใจที่รับอากาศบริสุทธิ์",                                      en: "You are deeply rooted in nature, cherishing the connection between the earth and your breath." },                       iconName: "Leaf",     iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
-            explorer:       { id: 'explorer',       title: { th: "The Modern Explorer",             en: "The Modern Explorer" },             subtitle: { th: "นักสำรวจโยคะสมัยใหม่",        en: "The Avant-Garde Yogi" },      bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", bgCapture: "linear-gradient(to bottom, #f43f5e, #e11d48, #be123c)", description: { th: "คุณชอบความแปลกใหม่และไม่ยึดติดกับกรอบเดิมๆ พร้อมจะพุ่งตัวเข้าไปลองโยคะแนวใหม่ๆ เสมอ",                                                          en: "You love novelty and breaking conventions, always searching for new experiences on the mat." },                          iconName: "Sparkles", iconColor: "text-pink-500",    imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
-            healing:        { id: 'healing',        title: { th: "The Healing Soul",                en: "The Healing Soul" },                subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ",   en: "The Restorative Healer" },    bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", bgCapture: "linear-gradient(to bottom, #ec4899, #db2777, #9d174d)", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู คุณใช้โยคะเพื่อบำบัดความเหนื่อยล้าและสร้างพื้นที่ปลอดภัยให้ตัวเอง",                                             en: "Your practice is about nurturing and recovery, using yoga to heal fatigue and create a safe space." },                  iconName: "Heart",    iconColor: "text-rose-400",   imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
-            spiritual:      { id: 'spiritual',      title: { th: "The Spiritual Guide",             en: "The Spiritual Guide" },             subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ",   en: "The Mystical Spirit" },       bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", bgCapture: "linear-gradient(to bottom, #f59e0b, #d97706, #b45309)", description: { th: "คุณมองโยคะเป็นมากกว่าการออกกำลังกาย แต่เป็นการเชื่อมต่อกับจักรวาล จักระ และพลังงานภายใน",                                                       en: "You see yoga as a connection to the universe, focusing on chakras and spiritual energy." },                              iconName: "Star",     iconColor: "text-amber-400",  imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
-            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined Traditionalist",  en: "The Disciplined Traditionalist" },  subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม",  en: "The Classic Hatha Yogi" },    bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", bgCapture: "linear-gradient(to bottom, #64748b, #475569, #1e293b)", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทาง (Alignment) และการฝึกฝนตามแบบแผนดั้งเดิมอย่างเคร่งครัด",                                               en: "You prioritize alignment and strictly follow traditional methods with deep respect for lineage." },                      iconName: "Anchor",   iconColor: "text-slate-500",  imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
-            social:         { id: 'social',         title: { th: "The Social Flow-er",              en: "The Social Flow-er" },              subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน",  en: "The Community Connecter" },   bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", bgCapture: "linear-gradient(to bottom, #06b6d4, #0891b2, #0369a1)", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น คุณแชร์พลังงานและความสุขผ่านการฝึกแบบกลุ่ม",                                                    en: "You shine brightest when practicing with others, sharing energy and joy through community flow." },                      iconName: "Users",    iconColor: "text-cyan-500",   imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
+            zen: { id: 'zen', title: { th: "The Zen Master", en: "The Zen Master" }, subtitle: { th: "ผู้แสวงหาความสงบภายใน", en: "The Inner Peace Seeker" }, bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง การฝึกของคุณเปรียบเสมือนการทำสมาธิที่เคลื่อนไหวได้", en: "You prioritize breath and mindfulness above all. Your practice is a moving meditation focusing on serenity." }, iconName: "Moon", iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
+            warrior: { id: 'warrior', title: { th: "The Power Warrior", en: "The Power Warrior" }, subtitle: { th: "นักรบผู้แข็งแกร่ง", en: "The Strength Warrior" }, bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", description: { th: "คุณรักความท้าทายและการมีวินัย การฝึกโยคะของคุณคือการสร้างพลังงานและการก้าวข้ามขีดจำกัดของร่างกาย", en: "You thrive on challenge and discipline, pushing physical boundaries to build raw energy." }, iconName: "Flame", iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
+            nature: { id: 'nature', title: { th: "The Nature Seeker", en: "The Nature Seeker" }, subtitle: { th: "ผู้หลงรักธรรมชาติ", en: "The Earth-Bound Yogi" }, bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบความรู้สึกที่เท้าสัมผัสพื้นหญ้าและลมหายใจที่รับอากาศบริสุทธิ์", en: "You are deeply rooted in nature, cherishing the connection between the earth and your breath." }, iconName: "Leaf", iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
+            explorer: { id: 'explorer', title: { th: "The Modern Explorer", en: "The Modern Explorer" }, subtitle: { th: "นักสำรวจโยคะสมัยใหม่", en: "The Avant-Garde Yogi" }, bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", description: { th: "คุณชอบความแปลกใหม่และไม่ยึดติดกับกรอบเดิมๆ พร้อมจะพุ่งตัวเข้าไปลองโยคะแนวใหม่ๆ เสมอ", en: "You love novelty and breaking conventions, always searching for new experiences on the mat." }, iconName: "Sparkles", iconColor: "text-pink-500", imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
+            healing: { id: 'healing', title: { th: "The Healing Soul", en: "The Healing Soul" }, subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ", en: "The Restorative Healer" }, bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู คุณใช้โยคะเพื่อบำบัดความเหนื่อยล้าและสร้างพื้นที่ปลอดภัยให้ตัวเอง", en: "Your practice is about nurturing and recovery, using yoga to heal fatigue and create a safe space." }, iconName: "Heart", iconColor: "text-rose-400", imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
+            spiritual: { id: 'spiritual', title: { th: "The Spiritual Guide", en: "The Spiritual Guide" }, subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ", en: "The Mystical Spirit" }, bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", description: { th: "คุณมองโยคะเป็นมากกว่าการออกกำลังกาย แต่เป็นการเชื่อมต่อกับจักรวาล จักระ และพลังงานภายใน", en: "You see yoga as a connection to the universe, focusing on chakras and spiritual energy." }, iconName: "Star", iconColor: "text-amber-400", imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
+            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined Traditionalist", en: "The Disciplined Traditionalist" }, subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม", en: "The Classic Hatha Yogi" }, bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทาง (Alignment) และการฝึกฝนตามแบบแผนดั้งเดิมอย่างเคร่งครัด", en: "You prioritize alignment and strictly follow traditional methods with deep respect for lineage." }, iconName: "Anchor", iconColor: "text-slate-500", imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
+            social: { id: 'social', title: { th: "The Social Flow-er", en: "The Social Flow-er" }, subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน", en: "The Community Connecter" }, bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น คุณแชร์พลังงานและความสุขผ่านการฝึกแบบกลุ่ม", en: "You shine brightest when practicing with others, sharing energy and joy through community flow." }, iconName: "Users", iconColor: "text-cyan-500", imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
         };
+
+        // --- APP MAIN ---
 
         function App() {
             const [lang, setLang] = useState('th');
@@ -142,34 +213,7 @@
             const [currentQuestion, setCurrentQuestion] = useState(0);
             const [scores, setScores] = useState({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 });
             const [result, setResult] = useState(null);
-            const [isCapturing, setIsCapturing] = useState(false);
             const langRef = useRef(null);
-            const resultCardRef = useRef(null);
-            const [cachedImageBase64, setCachedImageBase64] = useState(null);
-
-// ✅ โหลดรูปเป็น base64 ทันทีที่ result โชว์
-useEffect(() => {
-    if (step !== 'result' || !result) return;
-    setCachedImageBase64(null);
-    const load = async () => {
-        try {
-            const res = await Promise.race([
-                fetch(`https://corsproxy.io/?${encodeURIComponent(result.imageUrl)}`),
-                new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000))
-            ]);
-            const blob = await res.blob();
-            const base64 = await new Promise(resolve => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.readAsDataURL(blob);
-            });
-            setCachedImageBase64(base64);
-        } catch (e) {
-            console.warn('Preload image failed:', e);
-        }
-    };
-    load();
-}, [step, result]);
 
             const t = UI_TEXT[lang];
 
@@ -179,7 +223,10 @@ useEffect(() => {
                 setScores({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 });
             };
 
-            const backToHome = () => { setStep('landing'); setResult(null); };
+            const backToHome = () => {
+                setStep('landing');
+                setResult(null);
+            };
 
             const handleAnswer = (score) => {
                 const newScores = { ...scores };
@@ -194,75 +241,12 @@ useEffect(() => {
                 }
             };
 
-            // ✅ Capture เฉพาะ card (ไม่มีปุ่ม) แล้ว share native iOS/Android
-            const handleShareImage = async () => {
-    if (!resultCardRef.current) return;
-    setIsCapturing(true);
-
-    try {
-        // ✅ ใช้รูปที่โหลดไว้แล้ว ไม่ต้องรออีก
-        const imgEl = resultCardRef.current.querySelector('img');
-        const originalSrc = imgEl ? imgEl.src : '';
-
-        if (imgEl && cachedImageBase64) {
-            imgEl.src = cachedImageBase64;
-        }
-
-        const canvas = await html2canvas(resultCardRef.current, {
-            useCORS: false,
-            allowTaint: true,
-            scale: 2,
-            backgroundColor: null,
-            logging: false,
-        });
-
-        // คืน src เดิม
-        if (imgEl && originalSrc) imgEl.src = originalSrc;
-
-        canvas.toBlob(async (blob) => {
-            if (!blob) { setIsCapturing(false); return; }
-
-            const file = new File([blob], 'yogi-soul-result.png', { type: 'image/png' });
-            const shareText = lang === 'th'
-                ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 🧘 yogiquizjohn.vercel.app`
-                : `I am "${result.title.en}"! Discover your Yogi soul 🧘 yogiquizjohn.vercel.app`;
-
-            try {
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({ title: 'Yogi Soul Quiz', text: shareText, files: [file] });
-                } else if (navigator.share) {
-                    await navigator.share({ title: 'Yogi Soul Quiz', text: shareText, url: window.location.href });
-                } else {
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(blob);
-                    a.download = 'yogi-soul-result.png';
-                    a.click();
-                }
-            } catch (shareErr) {
-                console.warn('Share cancelled:', shareErr);
-            }
-            setIsCapturing(false);
-        }, 'image/png');
-
-    } catch (err) {
-        console.error('Capture error:', err);
-        try {
-            if (navigator.share) await navigator.share({ title: 'Yogi Soul Quiz', url: window.location.href });
-        } catch (_) {}
-        setIsCapturing(false);
-    }
-};
-
-            // ✅ ชวนเพื่อน — share link
-            const handleInvite = async () => {
-                const text = lang === 'th'
-                    ? `มาค้นหาจิตวิญญาณ Yogi ของคุณกัน! 🧘 yogiquizjohn.vercel.app`
-                    : `Discover your Yogi Soul! 🧘 yogiquizjohn.vercel.app`;
-                if (navigator.share) {
-                    await navigator.share({ title: 'Yogi Soul Quiz', text, url: window.location.href });
-                } else {
-                    await navigator.clipboard.writeText(window.location.href);
-                    alert(t.copied);
+            const handleShare = () => {
+                const shareText = lang === 'th' ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณกัน` : `I am "${result.title.en}"! Discover your Yogi soul here:`;
+                if (navigator.share) { 
+                    navigator.share({ title: 'Yogi Soul Quiz', text: shareText, url: window.location.href }); 
+                } else { 
+                    alert(t.copied); 
                 }
             };
 
@@ -276,18 +260,7 @@ useEffect(() => {
 
             return (
                 <div className="min-h-screen flex flex-col items-center">
-
-                    {/* Loading Overlay */}
-                    {isCapturing && (
-                        <div className="capture-loading">
-                            <div className="text-center text-white">
-                                <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-                                <p className="font-bold text-sm">{t.capturing}</p>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Header */}
+                    {/* ✅ Header (Navigation Bar) - เพิ่มพื้นหลังโปร่งแสงในหน้า Result และไม่ Pin Fix */}
                     <div className={`w-full max-w-md p-4 flex justify-between items-center z-50 transition-all duration-500 ${step === 'result' ? 'glass-header rounded-b-3xl mb-4' : ''}`}>
                         <div className={`flex items-center gap-2 ${step === 'landing' || step === 'result' ? 'text-white' : 'text-[#2c3e50]'}`}>
                             <YogaBallLogo className="w-6 h-6" />
@@ -297,12 +270,16 @@ useEffect(() => {
                             <button onClick={() => setIsLangOpen(!isLangOpen)} className="bg-white shadow-dropdown border border-stone-100 pl-2 pr-1 py-1 rounded-[6px] flex items-center gap-2 text-[11px] font-bold text-stone-700 active:scale-95 transition-all">
                                 <span className="text-base leading-none">{t.flag}</span>
                                 <span className="min-w-[60px] text-left font-bold">{lang === 'th' ? 'ภาษาไทย' : 'English'}</span>
-                                <IconRenderer name="ChevronDown" className="w-3 h-3 text-stone-300" />
+                                <IconRenderer name="ChevronDown" className="w-3 h-3 text-stone-300 transition-transform" />
                             </button>
                             {isLangOpen && (
-                                <div className="absolute top-full right-0 mt-2 bg-white shadow-2xl rounded-[8px] border border-stone-100 overflow-hidden z-50">
-                                    <button onClick={() => { setLang('th'); setIsLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50 ${lang === 'th' ? 'bg-stone-50 text-[#10b981]' : 'text-stone-600'}`}><span>🇹🇭</span> ภาษาไทย</button>
-                                    <button onClick={() => { setLang('en'); setIsLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50 ${lang === 'en' ? 'bg-stone-50 text-[#10b981]' : 'text-stone-600'}`}><span>🇺🇸</span> English</button>
+                                <div className="absolute top-full right-0 mt-2 bg-white shadow-2xl rounded-[8px] border border-stone-100 overflow-hidden animate-in fade-in slide-in-from-top-1 z-50">
+                                    <button onClick={() => {setLang('th'); setIsLangOpen(false);}} className={`w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50 ${lang === 'th' ? 'bg-stone-50 text-[#10b981]' : 'text-stone-600'}`}>
+                                        <span>🇹🇭</span> ภาษาไทย
+                                    </button>
+                                    <button onClick={() => {setLang('en'); setIsLangOpen(false);}} className={`w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50 ${lang === 'en' ? 'bg-stone-50 text-[#10b981]' : 'text-stone-600'}`}>
+                                        <span>🇺🇸</span> English
+                                    </button>
                                 </div>
                             )}
                         </div>
@@ -311,8 +288,7 @@ useEffect(() => {
                     {/* Content Container */}
                     <div className={`w-full max-w-md min-h-screen flex flex-col relative shadow-xl overflow-hidden transition-all duration-700 ${step === 'landing' ? 'bg-gradient-to-b from-[#10b981] via-[#059669] to-[#06b6d4]' : step === 'result' && result ? result.bg : 'bg-[#fdfaf5]'}`}>
                         <div className="flex-1 overflow-y-auto pb-8">
-
-                            {/* LANDING */}
+                            
                             {step === 'landing' && (
                                 <div className="p-8 text-center animate-in fade-in flex flex-col items-center justify-center min-h-[80vh]">
                                     <div className="mb-8 relative animate-float">
@@ -320,22 +296,29 @@ useEffect(() => {
                                     </div>
                                     <div className="space-y-1 mb-10 text-white text-center">
                                         <p className="text-xl font-medium tracking-wide drop-shadow-sm">{t.titlePrefix}</p>
-                                        <h1 className="text-6xl font-black text-outline uppercase tracking-tighter drop-shadow-lg leading-tight">{t.titleMain}</h1>
+                                        <h1 className="text-6xl font-black text-outline uppercase tracking-tighter drop-shadow-lg leading-tight">
+                                            {t.titleMain}
+                                        </h1>
                                         <div className="h-4" />
                                         <p className="text-white/90 text-sm font-medium leading-relaxed px-4 drop-shadow-sm max-w-xs mx-auto italic opacity-90">{t.desc}</p>
                                     </div>
-                                    <button onClick={startQuiz} className="w-full max-w-[280px] bg-[#344154] text-white py-5 rounded-[2rem] font-black shadow-2xl active:scale-95 transition-all text-xl mt-4 hover:bg-[#2c3e50]">{t.startBtn}</button>
-                                    <div className="mt-8 flex items-center justify-center gap-2 text-white/50 text-[10px] font-bold uppercase tracking-[0.3em]"><span>{t.analysis}</span></div>
+                                    <button onClick={startQuiz} className="w-full max-w-[280px] bg-[#344154] text-white py-5 rounded-[2rem] font-black shadow-2xl active:scale-95 transition-all text-xl mt-4 hover:bg-[#2c3e50]">
+                                        {t.startBtn}
+                                    </button>
+                                    <div className="mt-8 flex items-center justify-center gap-2 text-white/50 text-[10px] font-bold uppercase tracking-[0.3em]">
+                                        <span>{t.analysis}</span>
+                                    </div>
                                 </div>
                             )}
 
-                            {/* QUIZ */}
                             {step === 'quiz' && (
                                 <div className="p-8 animate-in slide-in-from-right duration-500 bg-[#ebebeb] min-h-full rounded-t-[3rem] mt-4 shadow-inner">
                                     <div className="mb-10 flex justify-between items-end px-2">
                                         <div>
                                             <p className="text-[11px] font-black text-[#10b981] uppercase mb-2 tracking-widest">{t.question}</p>
-                                            <h3 className="text-5xl font-black text-[#2c3e50] leading-none">{currentQuestion + 1}<span className="text-stone-300 text-xl font-normal"> / {QUESTIONS.length}</span></h3>
+                                            <h3 className="text-5xl font-black text-[#2c3e50] leading-none">
+                                                {currentQuestion + 1}<span className="text-stone-300 text-xl font-normal"> / {QUESTIONS.length}</span>
+                                            </h3>
                                         </div>
                                         <div className="text-[11px] font-bold text-stone-400 mb-1">{Math.round(((currentQuestion + 1) / QUESTIONS.length) * 100)}%</div>
                                     </div>
@@ -345,7 +328,7 @@ useEffect(() => {
                                     <h2 className="text-3xl font-bold mb-14 text-[#2c3e50] leading-tight px-2 text-center">{QUESTIONS[currentQuestion].question[lang]}</h2>
                                     <div className="space-y-4 px-2 pb-10">
                                         {QUESTIONS[currentQuestion].options.map((option, idx) => (
-                                            <button key={idx} onClick={() => handleAnswer(option.score)} className="w-full text-left p-6 bg-white/80 rounded-[1.5rem] hover:bg-white hover:shadow-lg transition-all flex items-center justify-between active:scale-[0.98]">
+                                            <button key={idx} onClick={() => handleAnswer(option.score)} className="w-full text-left p-6 bg-white/80 rounded-[1.5rem] hover:bg-white hover:shadow-lg transition-all flex items-center justify-between active:scale-[0.98] group">
                                                 <span className="text-[#2c3e50] font-bold text-lg pr-4">{option.text[lang]}</span>
                                                 <IconRenderer name="ChevronRight" className="w-5 h-5 text-stone-300" />
                                             </button>
@@ -354,61 +337,51 @@ useEffect(() => {
                                 </div>
                             )}
 
-                            {/* RESULT */}
                             {step === 'result' && result && (
                                 <div className="flex flex-col items-center animate-in fade-in duration-1000 relative min-h-full pb-10">
                                     <Confetti />
-
-                                    {/* ✅ เฉพาะส่วนนี้ถูก capture — ไม่มีปุ่ม */}
-                                    <div ref={resultCardRef} className="w-full px-6 pt-6 pb-8 flex flex-col items-center" style={{ background: result.bgCapture }}>
-                                        <h1 className="text-4xl font-black text-white text-outline uppercase tracking-tighter drop-shadow-2xl leading-tight mb-5 text-center">
+                                    <div className="w-full pt-8 px-6 flex flex-col items-center text-center">
+                                        <h1 className="text-5xl font-black text-white text-outline uppercase tracking-tighter drop-shadow-2xl leading-tight mb-6">
                                             {String(result.title[lang] || "")}
                                         </h1>
-                                        <div className="w-full bg-white rounded-[2.5rem] p-5 shadow-2xl border border-white/20 overflow-hidden">
-                                            <div className="flex items-center gap-3 mb-5">
-                                                <div className="p-3 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm flex-shrink-0">
+                                        <div className="w-full bg-white rounded-[2.5rem] p-6 shadow-2xl mb-8 border border-white/20 overflow-hidden text-left">
+                                            <div className="flex items-center gap-3 mb-6">
+                                                <div className="p-3 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm">
                                                     <IconRenderer name={result.iconName} className={`w-8 h-8 ${result.iconColor}`} />
                                                 </div>
                                                 <div>
                                                     <p className="text-[#ff4d6d] text-[10px] font-black uppercase tracking-[0.2em]">{t.soulTypeLabel}</p>
-                                                    <h2 className="text-xl font-black text-[#2c3e50] leading-tight mt-0.5">{String(result.title[lang] || "")}</h2>
-                                                    <p className="text-stone-400 font-bold text-xs mt-0.5">{String(result.subtitle[lang] || "")}</p>
+                                                    <h2 className="text-2xl font-black text-[#2c3e50] leading-none mt-1">{String(result.title[lang] || "")}</h2>
+                                                    <p className="text-stone-400 font-bold text-xs mt-1">{String(result.subtitle[lang] || "")}</p>
                                                 </div>
                                             </div>
-                                            <div className="w-full aspect-square bg-stone-50 rounded-[2rem] overflow-hidden mb-5 border border-stone-100">
-                                                <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                                            <div className="w-full aspect-square bg-stone-50 rounded-[2rem] overflow-hidden mb-6 border border-stone-100">
+                                                <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" />
                                             </div>
-                                            <p className="text-stone-500 font-medium text-sm leading-relaxed italic text-center px-2 mb-2">
-                                                "{String(result.description[lang] || "")}"
-                                            </p>
-                                            <p className="text-stone-300 text-[9px] font-bold uppercase tracking-[0.3em] text-center mt-3">yogiquizjohn.vercel.app</p>
+                                            <div className="text-center px-4 mb-4">
+                                                <p className="text-stone-500 font-medium text-sm leading-relaxed italic opacity-90">
+                                                    "{String(result.description[lang] || "")}"
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                        
+                                        <div className="text-center mb-8">
+                                            <p className="text-white font-bold text-lg tracking-wide italic drop-shadow-lg opacity-90">{t.innerIdentity}</p>
+                                        </div>
 
-                                    {/* ✅ ปุ่มอยู่นอก ref — ไม่ติดในรูป */}
-                                    {/* ซ้าย: ชวนเพื่อน | ขวา: แชร์ผลลัพธ์ */}
-                                    <div className="w-full px-6 mt-6 flex gap-3">
-                                        <button
-                                            onClick={handleInvite}
-                                            className="flex-1 py-5 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm"
-                                        >
-                                            <IconRenderer name="UserPlus" className="w-6 h-6 text-white" />
-                                            <span className="text-sm font-black leading-tight text-center">{t.inviteBtn}</span>
-                                        </button>
-                                        <button
-                                            onClick={handleShareImage}
-                                            className="flex-1 py-5 rounded-[1.5rem] bg-white text-[#2c3e50] font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2"
-                                        >
-                                            <IconRenderer name="ImageUp" className="w-6 h-6 text-[#10b981]" />
-                                            <span className="text-sm font-black leading-tight text-center">{t.shareStoryBtn}</span>
-                                        </button>
-                                    </div>
+                                        {/* ✅ ปุ่มชวนเพื่อนมาเล่นแบบเต็มความกว้างพร้อมไอคอนแชร์ (ปุ่มเดียว) */}
+                                        <div className="w-full mb-6 px-2">
+                                            <button onClick={handleShare} className="w-full py-5 rounded-[2rem] bg-white text-[#2c3e50] font-black text-lg shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3">
+                                                <IconRenderer name="Share2" className="w-6 h-6 text-[#10b981]" />
+                                                {t.inviteBtn}
+                                            </button>
+                                        </div>
 
-                                    <button onClick={backToHome} className="text-white/60 text-sm font-bold underline mt-6 mb-4 hover:text-white transition-colors">{t.restartBtn}</button>
-                                    <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.3em]">{t.created}</p>
+                                        <button onClick={backToHome} className="text-white/60 text-sm font-bold underline mb-12 hover:text-white transition-colors">{t.restartBtn}</button>
+                                        <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.3em] mb-12">{t.created}</p>
+                                    </div>
                                 </div>
                             )}
-
                         </div>
                     </div>
                 </div>
