@@ -16,7 +16,6 @@
     <meta name="twitter:title" content="Discover Your Yogi Soul 🧘" />
     <meta name="twitter:description" content="ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ" />
     <meta name="twitter:image" content="https://yogiquizjohn.vercel.app/og-image.png" />
-    <script src="/_vercel/insights/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -57,12 +56,8 @@
         };
 
         const UI_TEXT = {
-            th: {
-                startBtn: "เริ่มเลย", shareStoryBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อนมาเล่น", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ", question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity", created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "คัดลอกลิงก์เรียบร้อย!", preparing: "กำลังเตรียมรูปแชร์...", langName: "ภาษาไทย", flag: "🇹🇭"
-            },
-            en: {
-                startBtn: "Start Now", shareStoryBtn: "Share Result", inviteBtn: "Invite Friends", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.", question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity", created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "Link copied!", preparing: "Preparing image...", langName: "English", flag: "🇺🇸"
-            }
+            th: { startBtn: "เริ่มเลย", shareStoryBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อนมาเล่น", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ", question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Spiritual Identity", created: "By JOHN LIZ YOGI", analysis: "8 Questions", copied: "คัดลอกแล้ว!", preparing: "กำลังเตรียมรูปแชร์...", flag: "🇹🇭" },
+            en: { startBtn: "Start Now", shareStoryBtn: "Share Result", inviteBtn: "Invite Friends", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "Unveil your true essence through yoga. Answer 8 questions to discover your inner spiritual identity.", question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Spiritual Identity", created: "By JOHN LIZ YOGI", analysis: "8 Questions", copied: "Copied!", preparing: "Preparing image...", flag: "🇺🇸" }
         };
 
         const QUESTIONS = [
@@ -77,25 +72,27 @@
         ];
 
         const RESULTS = {
-            zen: { id: 'zen', title: { th: "The Zen Master", en: "The Zen Master" }, subtitle: { th: "ผู้แสวงหาความสงบภายใน", en: "The Inner Peace Seeker" }, bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", bgCapture: "linear-gradient(to bottom, #4f46e5, #7c3aed, #a855f7)", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง การฝึกของคุณเปรียบเสมือนการทำสมาธิที่เคลื่อนไหวได้", en: "You prioritize breath and mindfulness above all. Your practice is a moving meditation focusing on serenity." }, iconName: "Moon", iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
-            warrior: { id: 'warrior', title: { th: "The Power Warrior", en: "The Power Warrior" }, subtitle: { th: "นักรบผู้แข็งแกร่ง", en: "The Strength Warrior" }, bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", bgCapture: "linear-gradient(to bottom, #f97316, #ea580c, #dc2626)", description: { th: "คุณรักความท้าทายและการมีวินัย การฝึกโยคะของคุณคือการสร้างพลังงานและการก้าวข้ามขีดจำกัดของร่างกาย", en: "You thrive on challenge and discipline, pushing physical boundaries to build raw energy." }, iconName: "Flame", iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
-            nature: { id: 'nature', title: { th: "The Nature Seeker", en: "The Nature Seeker" }, subtitle: { th: "ผู้หลงรักธรรมชาติ", en: "The Earth-Bound Yogi" }, bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", bgCapture: "linear-gradient(to bottom, #10b981, #059669, #047857)", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบความรู้สึกที่เท้าสัมผัสพื้นหญ้าและลมหายใจที่รับอากาศบริสุทธิ์", en: "You are deeply rooted in nature, cherishing the connection between the earth and your breath." }, iconName: "Leaf", iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
-            explorer: { id: 'explorer', title: { th: "The Modern Explorer", en: "The Modern Explorer" }, subtitle: { th: "นักสำรวจโยคะสมัยใหม่", en: "The Avant-Garde Yogi" }, bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", bgCapture: "linear-gradient(to bottom, #f43f5e, #e11d48, #be123c)", description: { th: "คุณชอบความแปลกใหม่และไม่ยึดติดกับกรอบเดิมๆ พร้อมจะพุ่งตัวเข้าไปลองโยคะแนวใหม่ๆ เสมอ", en: "You love novelty and breaking conventions, always searching for new experiences on the mat." }, iconName: "Sparkles", iconColor: "text-pink-500", imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
-            healing: { id: 'healing', title: { th: "The Healing Soul", en: "The Healing Soul" }, subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ", en: "The Restorative Healer" }, bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", bgCapture: "linear-gradient(to bottom, #ec4899, #db2777, #9d174d)", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู คุณใช้โยคะเพื่อบำบัดความเหนื่อยล้าและสร้างพื้นที่ปลอดภัยให้ตัวเอง", en: "Your practice is about nurturing and recovery, using yoga to heal fatigue and create a safe space." }, iconName: "Heart", iconColor: "text-rose-400", imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
-            spiritual: { id: 'spiritual', title: { th: "The Spiritual Guide", en: "The Spiritual Guide" }, subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ", en: "The Mystical Spirit" }, bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", bgCapture: "linear-gradient(to bottom, #f59e0b, #d97706, #b45309)", description: { th: "คุณมองโยคะเป็นมากกว่าการออกกำลังกาย แต่เป็นการเชื่อมต่อกับจักรวาล จักระ และพลังงานภายใน", en: "You see yoga as a connection to the universe, focusing on chakras and spiritual energy." }, iconName: "Star", iconColor: "text-amber-400", imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
-            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined Traditionalist", en: "The Disciplined Traditionalist" }, subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม", en: "The Classic Hatha Yogi" }, bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", bgCapture: "linear-gradient(to bottom, #64748b, #475569, #1e293b)", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทาง (Alignment) และการฝึกฝนตามแบบแผนดั้งเดิมอย่างเคร่งครัด", en: "You prioritize alignment and strictly follow traditional methods with deep respect for lineage." }, iconName: "Anchor", iconColor: "text-slate-500", imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
-            social: { id: 'social', title: { th: "The Social Flow-er", en: "The Social Flow-er" }, subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน", en: "The Community Connecter" }, bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", bgCapture: "linear-gradient(to bottom, #06b6d4, #0891b2, #0369a1)", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น คุณแชร์พลังงานและความสุขผ่านการฝึกแบบกลุ่ม", en: "You shine brightest when practicing with others, sharing energy and joy through community flow." }, iconName: "Users", iconColor: "text-cyan-500", imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
+            zen: { id: 'zen', title: { th: "The Zen Master", en: "The Zen Master" }, subtitle: { th: "ผู้แสวงหาความสงบภายใน", en: "The Inner Peace Seeker" }, bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", bgCapture: "linear-gradient(to bottom, #4f46e5, #7c3aed, #a855f7)", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง", en: "You prioritize breath and mindfulness above all." }, iconName: "Moon", iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
+            warrior: { id: 'warrior', title: { th: "The Power Warrior", en: "The Power Warrior" }, subtitle: { th: "นักรบผู้แข็งแกร่ง", en: "The Strength Warrior" }, bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", bgCapture: "linear-gradient(to bottom, #f97316, #ea580c, #dc2626)", description: { th: "คุณรักความท้าทายและการมีวินัย โยคะของคุณคือการสร้างพลัง", en: "You thrive on challenge and discipline. Yoga is power." }, iconName: "Flame", iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
+            nature: { id: 'nature', title: { th: "The Nature Seeker", en: "The Nature Seeker" }, subtitle: { th: "ผู้หลงรักธรรมชาติ", en: "The Earth-Bound Yogi" }, bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", bgCapture: "linear-gradient(to bottom, #10b981, #059669, #047857)", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบเท้าสัมผัสพื้นหญ้า", en: "You are deeply rooted in nature. Root to rise." }, iconName: "Leaf", iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
+            explorer: { id: 'explorer', title: { th: "The Modern Explorer", en: "The Modern Explorer" }, subtitle: { th: "นักสำรวจโยคะสมัยใหม่", en: "The Avant-Garde Yogi" }, bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", bgCapture: "linear-gradient(to bottom, #f43f5e, #e11d48, #be123c)", description: { th: "คุณชอบความแปลกใหม่ พร้อมลองโยคะแนวใหม่ๆ เสมอ", en: "You love novelty and breaking conventions on the mat." }, iconName: "Sparkles", iconColor: "text-pink-500", imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
+            healing: { id: 'healing', title: { th: "The Healing Soul", en: "The Healing Soul" }, subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ", en: "The Restorative Healer" }, bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", bgCapture: "linear-gradient(to bottom, #ec4899, #db2777, #9d174d)", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู ใช้โยคะบำบัดความล้า", en: "Your practice is about nurturing and deep recovery." }, iconName: "Heart", iconColor: "text-rose-400", imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
+            spiritual: { id: 'spiritual', title: { th: "The Spiritual Guide", en: "The Spiritual Guide" }, subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ", en: "The Mystical Spirit" }, bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", bgCapture: "linear-gradient(to bottom, #f59e0b, #d97706, #b45309)", description: { th: "คุณมองโยคะเป็นการเชื่อมต่อกับจักรวาลและพลังงานภายใน", en: "You see yoga as a connection to the universe." }, iconName: "Star", iconColor: "text-amber-400", imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
+            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined", en: "The Disciplined" }, subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม", en: "The Classic Hatha Yogi" }, bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", bgCapture: "linear-gradient(to bottom, #64748b, #475569, #1e293b)", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทางตามแบบแผน", en: "You prioritize alignment and strict tradition." }, iconName: "Anchor", iconColor: "text-slate-500", imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
+            social: { id: 'social', title: { th: "The Social Flow-er", en: "The Social Flow-er" }, subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน", en: "The Community Connecter" }, bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", bgCapture: "linear-gradient(to bottom, #06b6d4, #0891b2, #0369a1)", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น", en: "You shine brightest when practicing with others." }, iconName: "Users", iconColor: "text-cyan-500", imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
         };
 
         function App() {
             const [lang, setLang] = useState('th');
+            const [isLangOpen, setIsLangOpen] = useState(false); // ✅ แก้จุดบอดจอขาว เพิ่มบรรทัดนี้
             const [step, setStep] = useState('landing');
             const [currentQuestion, setCurrentQuestion] = useState(0);
             const [scores, setScores] = useState({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 });
             const [result, setResult] = useState(null);
-            const [shareFile, setShareFile] = useState(null); // ✅ เก็บไฟล์ภาพแชร์ไว้ใน state
+            const [shareFile, setShareFile] = useState(null);
             const [isPreparing, setIsPreparing] = useState(false);
             const resultCardRef = useRef(null);
+            const langRef = useRef(null);
             const t = UI_TEXT[lang];
 
             const startQuiz = () => {
@@ -120,90 +117,52 @@
                 }
             };
 
-            // ✅ หัวใจสำคัญ: เตรียมรูปแชร์ไว้รอทันทีที่ผลลัพธ์ออก
+            // ✅ เตรียมรูปแชร์แบบ Safe (ไม่มี Error ดักจอขาว)
             useEffect(() => {
                 if (step === 'result' && result && resultCardRef.current) {
-                    preCaptureImage();
+                    const timer = setTimeout(() => preCaptureImage(), 1000);
+                    return () => clearTimeout(timer);
                 }
             }, [step, result, lang]);
 
             const preCaptureImage = async () => {
+                if (!resultCardRef.current) return;
                 setIsPreparing(true);
-                setShareFile(null);
-                
-                // รอให้รูปภาพใน card โหลดเสร็จก่อน
-                const images = resultCardRef.current.getElementsByTagName('img');
-                await Promise.all(Array.from(images).map(img => {
-                    if (img.complete) return Promise.resolve();
-                    return new Promise(r => { img.onload = r; img.onerror = r; });
-                }));
-
-                // หน่วงเวลานิดนึงให้ DOM เรนเดอร์เสร็จสมบูรณ์
-                setTimeout(async () => {
-                    try {
-                        const canvas = await html2canvas(resultCardRef.current, {
-                            useCORS: true,
-                            scale: 2,
-                            backgroundColor: null,
-                            logging: false
-                        });
-
-                        canvas.toBlob((blob) => {
-                            if (blob) {
-                                const file = new File([blob], 'yogi-soul-result.png', { type: 'image/png' });
-                                setShareFile(file); // ✅ เก็บไว้ใน State เลย
-                            }
-                            setIsPreparing(false);
-                        }, 'image/png');
-                    } catch (e) {
-                        console.error(e);
+                try {
+                    const canvas = await html2canvas(resultCardRef.current, {
+                        useCORS: true,
+                        scale: 2,
+                        logging: false
+                    });
+                    canvas.toBlob((blob) => {
+                        if (blob) setShareFile(new File([blob], 'yogi-soul.png', { type: 'image/png' }));
                         setIsPreparing(false);
-                    }
-                }, 500);
+                    }, 'image/png');
+                } catch (e) {
+                    console.warn("Capture delay", e);
+                    setIsPreparing(false);
+                }
             };
 
             const handleShareImage = async () => {
-                // ถ้ายังเตรียมรูปไม่เสร็จ หรือแชร์ไม่ได้ ให้ลองดาวน์โหลดเป็น fallback
-                if (!shareFile) {
+                if (!shareFile) { 
                     if (isPreparing) alert(t.preparing);
-                    return;
+                    else preCaptureImage(); // ถ้าไฟล์ไม่มี ให้ลองแคปใหม่
+                    return; 
                 }
-
-                const shareText = lang === 'th'
-                    ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 🧘`
-                    : `I am "${result.title.en}"! Discover your Yogi soul 🧘`;
-
-                const shareData = {
-                    files: [shareFile],
-                    title: 'Yogi Soul Quiz',
-                    text: shareText,
-                };
-
-                // ✅ กดทีเดียว แชร์ทันที เพราะไฟล์พร้อมแล้ว
-                if (navigator.canShare && navigator.canShare({ files: [shareFile] })) {
-                    try {
-                        await navigator.share(shareData);
-                    } catch (err) {
-                        if (err.name !== 'AbortError') console.error(err);
-                    }
+                const shareText = lang === 'th' ? `ฉันคือ "${result.title.th}"! มาลองเล่นกัน 🧘` : `I am "${result.title.en}"! 🧘`;
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [shareFile] })) {
+                    try { await navigator.share({ files: [shareFile], title: 'Yogi Soul', text: shareText }); } 
+                    catch (err) { if (err.name !== 'AbortError') console.error(err); }
                 } else {
-                    // Fallback Download
-                    const a = document.createElement('a');
-                    a.href = URL.createObjectURL(shareFile);
-                    a.download = 'yogi-soul-result.png';
-                    a.click();
+                    const a = document.createElement('a'); a.href = URL.createObjectURL(shareFile); a.download = 'yogi-soul.png'; a.click();
                 }
             };
 
             const handleInvite = async () => {
-                const text = lang === 'th' ? `มาค้นหาจิตวิญญาณ Yogi ของคุณกัน! 🧘` : `Discover your Yogi Soul! 🧘`;
                 const url = "https://yogiquizjohn.vercel.app/";
-                if (navigator.share) {
-                    await navigator.share({ title: 'Yogi Soul Quiz', text, url });
-                } else {
-                    await navigator.clipboard.writeText(url);
-                    alert(t.copied);
-                }
+                if (navigator.share) await navigator.share({ title: 'Yogi Soul', url });
+                else { await navigator.clipboard.writeText(url); alert(t.copied); }
             };
 
             return (
@@ -212,11 +171,20 @@
                     <div className={`w-full max-w-md p-4 flex justify-between items-center z-50 transition-all duration-500 ${step === 'result' ? 'glass-header rounded-b-3xl' : ''}`}>
                         <div className={`flex items-center gap-2 ${step === 'landing' || step === 'result' ? 'text-white' : 'text-[#2c3e50]'}`}>
                             <YogaBallLogo className="w-6 h-6" />
-                            <span className="text-[10px] font-black uppercase tracking-tight opacity-80">Yogi Soul Discovery</span>
+                            <span className="text-[10px] font-black uppercase tracking-tight opacity-80">Yogi Soul</span>
                         </div>
-                        <div className="flex gap-1">
-                            <button onClick={() => setLang('th')} className={`px-2 py-1 rounded text-[11px] font-bold ${lang === 'th' ? 'bg-white text-stone-800 shadow-sm' : 'text-stone-400 opacity-60'}`}>🇹🇭 TH</button>
-                            <button onClick={() => setLang('en')} className={`px-2 py-1 rounded text-[11px] font-bold ${lang === 'en' ? 'bg-white text-stone-800 shadow-sm' : 'text-stone-400 opacity-60'}`}>🇺🇸 EN</button>
+                        <div className="relative" ref={langRef}>
+                            <button onClick={() => setIsLangOpen(!isLangOpen)} className="bg-white shadow-dropdown border border-stone-100 px-3 py-1 rounded-[6px] flex items-center gap-2 text-[11px] font-bold text-stone-700">
+                                <span className="text-base">{t.flag}</span>
+                                <span>{lang === 'th' ? 'TH' : 'EN'}</span>
+                                <IconRenderer name="ChevronDown" className="w-3 h-3 text-stone-300" />
+                            </button>
+                            {isLangOpen && (
+                                <div className="absolute top-full right-0 mt-2 bg-white shadow-2xl rounded-lg border border-stone-100 overflow-hidden z-50">
+                                    <button onClick={() => { setLang('th'); setIsLangOpen(false); }} className="w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50">🇹🇭 ภาษาไทย</button>
+                                    <button onClick={() => { setLang('en'); setIsLangOpen(false); }} className="w-full flex items-center gap-3 px-4 py-2 text-[11px] font-bold hover:bg-stone-50">🇺🇸 English</button>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -228,13 +196,12 @@
                                     <div className="mb-8 relative animate-float">
                                         <YogaBallLogo className="w-56 h-56 text-white drop-shadow-2xl" />
                                     </div>
-                                    <div className="space-y-1 mb-10 text-white text-center">
-                                        <p className="text-xl font-medium tracking-wide drop-shadow-sm">{t.titlePrefix}</p>
-                                        <h1 className="text-6xl font-black text-outline uppercase tracking-tighter drop-shadow-lg leading-tight">{t.titleMain}</h1>
-                                        <div className="h-4" />
-                                        <p className="text-white/90 text-sm font-medium leading-relaxed px-4 drop-shadow-sm max-w-xs mx-auto italic opacity-90">{t.desc}</p>
+                                    <div className="space-y-1 mb-10 text-white">
+                                        <p className="text-xl font-medium tracking-wide">{t.titlePrefix}</p>
+                                        <h1 className="text-6xl font-black text-outline uppercase tracking-tighter leading-tight">{t.titleMain}</h1>
+                                        <p className="text-white/90 text-sm font-medium leading-relaxed mt-4 italic">{t.desc}</p>
                                     </div>
-                                    <button onClick={startQuiz} className="w-full max-w-[280px] bg-[#344154] text-white py-5 rounded-[2rem] font-black shadow-2xl active:scale-95 transition-all text-xl mt-4">{t.startBtn}</button>
+                                    <button onClick={startQuiz} className="w-full max-w-[280px] bg-[#344154] text-white py-5 rounded-[2rem] font-black shadow-2xl active:scale-95 transition-all text-xl">{t.startBtn}</button>
                                 </div>
                             )}
 
@@ -242,18 +209,18 @@
                                 <div className="p-8 animate-in slide-in-from-right duration-500 bg-[#ebebeb] min-h-full rounded-t-[3rem] mt-4 shadow-inner">
                                     <div className="mb-10 flex justify-between items-end px-2">
                                         <div>
-                                            <p className="text-[11px] font-black text-[#10b981] uppercase mb-2 tracking-widest">{t.question}</p>
-                                            <h3 className="text-5xl font-black text-[#2c3e50] leading-none">{currentQuestion + 1}<span className="text-stone-300 text-xl font-normal"> / {QUESTIONS.length}</span></h3>
+                                            <p className="text-[11px] font-black text-[#10b981] uppercase mb-2">{t.question}</p>
+                                            <h3 className="text-5xl font-black text-[#2c3e50] leading-none">{currentQuestion + 1}<span className="text-stone-300 text-xl font-normal"> / 8</span></h3>
                                         </div>
-                                        <div className="text-[11px] font-bold text-stone-400 mb-1">{Math.round(((currentQuestion + 1) / QUESTIONS.length) * 100)}%</div>
+                                        <div className="text-[11px] font-bold text-stone-400">{Math.round(((currentQuestion + 1) / 8) * 100)}%</div>
                                     </div>
-                                    <div className="w-full bg-stone-200/50 h-[6px] rounded-full overflow-hidden mb-12 mx-2">
-                                        <div className="bg-[#10b981] h-full transition-all duration-1000" style={{ width: `${((currentQuestion + 1) / QUESTIONS.length) * 100}%` }}></div>
+                                    <div className="w-full bg-stone-200/50 h-[6px] rounded-full overflow-hidden mb-12">
+                                        <div className="bg-[#10b981] h-full transition-all duration-1000" style={{ width: `${((currentQuestion + 1) / 8) * 100}%` }}></div>
                                     </div>
-                                    <h2 className="text-3xl font-bold mb-14 text-[#2c3e50] leading-tight px-2 text-center">{QUESTIONS[currentQuestion].question[lang]}</h2>
+                                    <h2 className="text-3xl font-bold mb-14 text-[#2c3e50] leading-tight text-center">{QUESTIONS[currentQuestion].question[lang]}</h2>
                                     <div className="space-y-4 px-2 pb-10">
                                         {QUESTIONS[currentQuestion].options.map((option, idx) => (
-                                            <button key={idx} onClick={() => handleAnswer(option.score)} className="w-full text-left p-6 bg-white/80 rounded-[1.5rem] hover:bg-white hover:shadow-lg transition-all flex items-center justify-between active:scale-[0.98]">
+                                            <button key={idx} onClick={() => handleAnswer(option.score)} className="w-full text-left p-6 bg-white/80 rounded-[1.5rem] hover:bg-white flex items-center justify-between active:scale-[0.98] transition-all">
                                                 <span className="text-[#2c3e50] font-bold text-lg pr-4">{option.text[lang]}</span>
                                                 <IconRenderer name="ChevronRight" className="w-5 h-5 text-stone-300" />
                                             </button>
@@ -264,11 +231,10 @@
 
                             {step === 'result' && result && (
                                 <div className="flex flex-col items-center animate-in fade-in duration-1000 relative min-h-full pb-10">
+                                    {/* Capture Area */}
                                     <div ref={resultCardRef} className="w-full px-6 pt-6 pb-8 flex flex-col items-center" style={{ background: result.bgCapture }}>
-                                        <h1 className="text-4xl font-black text-white text-outline uppercase tracking-tighter drop-shadow-2xl leading-tight mb-5 text-center">
-                                            {result.title[lang]}
-                                        </h1>
-                                        <div className="w-full bg-white rounded-[2.5rem] p-5 shadow-2xl border border-white/20 overflow-hidden">
+                                        <h1 className="text-4xl font-black text-white text-outline uppercase tracking-tighter mb-5 text-center">{result.title[lang]}</h1>
+                                        <div className="w-full bg-white rounded-[2.5rem] p-5 shadow-2xl overflow-hidden">
                                             <div className="flex items-center gap-3 mb-5">
                                                 <div className="p-3 bg-stone-50 rounded-2xl border border-stone-100 flex-shrink-0">
                                                     <IconRenderer name={result.iconName} className={`w-8 h-8 ${result.iconColor}`} />
@@ -282,33 +248,23 @@
                                             <div className="w-full aspect-square bg-stone-50 rounded-[2rem] overflow-hidden mb-5 border border-stone-100">
                                                 <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" crossOrigin="anonymous" />
                                             </div>
-                                            <p className="text-stone-500 font-medium text-sm leading-relaxed italic text-center px-2 mb-2">
-                                                "{result.description[lang]}"
-                                            </p>
-                                            <p className="text-stone-300 text-[9px] font-bold uppercase tracking-[0.3em] text-center mt-3">yogiquizjohn.vercel.app</p>
+                                            <p className="text-stone-500 font-medium text-sm italic text-center px-2">"{result.description[lang]}"</p>
+                                            <p className="text-stone-300 text-[9px] font-bold uppercase tracking-[0.3em] text-center mt-5">yogiquizjohn.vercel.app</p>
                                         </div>
                                     </div>
 
+                                    {/* Action Buttons */}
                                     <div className="w-full px-6 mt-6 flex gap-3">
-                                        <button onClick={handleInvite} className="flex-1 py-5 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                                            <IconRenderer name="UserPlus" className="w-6 h-6 text-white" />
+                                        <button onClick={handleInvite} className="flex-1 py-5 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black active:scale-95 transition-all flex flex-col items-center gap-2 backdrop-blur-sm">
+                                            <IconRenderer name="UserPlus" className="w-6 h-6" />
                                             <span className="text-sm">{t.inviteBtn}</span>
                                         </button>
-                                        <button 
-                                            onClick={handleShareImage} 
-                                            disabled={isPreparing}
-                                            className={`flex-1 py-5 rounded-[1.5rem] font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2 ${isPreparing ? 'bg-stone-300 text-stone-500' : 'bg-white text-[#2c3e50]'}`}
-                                        >
-                                            {isPreparing ? (
-                                                <div className="w-6 h-6 border-4 border-[#10b981] border-t-transparent rounded-full animate-spin"></div>
-                                            ) : (
-                                                <IconRenderer name="Share2" className="w-6 h-6 text-[#10b981]" />
-                                            )}
-                                            <span className="text-sm">{isPreparing ? t.preparing : t.shareStoryBtn}</span>
+                                        <button onClick={handleShareImage} disabled={isPreparing} className={`flex-1 py-5 rounded-[1.5rem] font-black active:scale-95 transition-all flex flex-col items-center gap-2 ${isPreparing ? 'bg-stone-300 text-stone-500' : 'bg-white text-[#2c3e50]'}`}>
+                                            {isPreparing ? <div className="w-6 h-6 border-4 border-[#10b981] border-t-transparent rounded-full animate-spin"></div> : <IconRenderer name="Share2" className="w-6 h-6 text-[#10b981]" />}
+                                            <span className="text-sm">{isPreparing ? "Wait..." : t.shareStoryBtn}</span>
                                         </button>
                                     </div>
-
-                                    <button onClick={backToHome} className="text-white/60 text-sm font-bold underline mt-6 mb-4">{t.restartBtn}</button>
+                                    <button onClick={backToHome} className="text-white/60 text-sm font-bold underline mt-6">{t.restartBtn}</button>
                                 </div>
                             )}
 
