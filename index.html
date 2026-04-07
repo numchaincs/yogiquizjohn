@@ -145,6 +145,31 @@
             const [isCapturing, setIsCapturing] = useState(false);
             const langRef = useRef(null);
             const resultCardRef = useRef(null);
+            const [cachedImageBase64, setCachedImageBase64] = useState(null);
+
+// ✅ โหลดรูปเป็น base64 ทันทีที่ result โชว์
+useEffect(() => {
+    if (step !== 'result' || !result) return;
+    setCachedImageBase64(null);
+    const load = async () => {
+        try {
+            const res = await Promise.race([
+                fetch(`https://corsproxy.io/?${encodeURIComponent(result.imageUrl)}`),
+                new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000))
+            ]);
+            const blob = await res.blob();
+            const base64 = await new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+            setCachedImageBase64(base64);
+        } catch (e) {
+            console.warn('Preload image failed:', e);
+        }
+    };
+    load();
+}, [step, result]);
 
             const t = UI_TEXT[lang];
 
@@ -175,78 +200,54 @@
     setIsCapturing(true);
 
     try {
-        // ✅ แปลงรูปเป็น base64 ก่อน เพื่อแก้ปัญหา CORS บน iOS
+        // ✅ ใช้รูปที่โหลดไว้แล้ว ไม่ต้องรออีก
         const imgEl = resultCardRef.current.querySelector('img');
         const originalSrc = imgEl ? imgEl.src : '';
 
-        if (imgEl) {
-            try {
-                const res = await Promise.race([
-                    fetch(`https://corsproxy.io/?${encodeURIComponent(originalSrc)}`),
-                    new Promise((_, rej) => setTimeout(() => rej(new Error('fetch timeout')), 5000))
-                ]);
-                const blob = await res.blob();
-                const base64 = await new Promise(resolve => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.readAsDataURL(blob);
-                });
-                imgEl.src = base64;
-            } catch (e) {
-                // ถ้า proxy fail ให้ดำเนินการต่อโดยไม่มีรูป
-                console.warn('Image proxy failed, continuing without image:', e);
-            }
+        if (imgEl && cachedImageBase64) {
+            imgEl.src = cachedImageBase64;
         }
 
-        // ✅ Capture พร้อม timeout 12 วินาที
-        const canvas = await Promise.race([
-            html2canvas(resultCardRef.current, {
-                useCORS: false,
-                allowTaint: true,
-                scale: 2,
-                backgroundColor: null,
-                logging: false,
-            }),
-            new Promise((_, rej) => setTimeout(() => rej(new Error('canvas timeout')), 12000))
-        ]);
+        const canvas = await html2canvas(resultCardRef.current, {
+            useCORS: false,
+            allowTaint: true,
+            scale: 2,
+            backgroundColor: null,
+            logging: false,
+        });
 
         // คืน src เดิม
         if (imgEl && originalSrc) imgEl.src = originalSrc;
 
         canvas.toBlob(async (blob) => {
             if (!blob) { setIsCapturing(false); return; }
+
             const file = new File([blob], 'yogi-soul-result.png', { type: 'image/png' });
             const shareText = lang === 'th'
                 ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 🧘 yogiquizjohn.vercel.app`
                 : `I am "${result.title.en}"! Discover your Yogi soul 🧘 yogiquizjohn.vercel.app`;
 
-            const shareDataWithFile = { title: 'Yogi Soul Quiz', text: shareText, files: [file] };
-            const shareDataLink   = { title: 'Yogi Soul Quiz', text: shareText, url: window.location.href };
-
             try {
-                if (navigator.canShare && navigator.canShare(shareDataWithFile)) {
-                    await navigator.share(shareDataWithFile); // iOS/Android พร้อมรูป
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ title: 'Yogi Soul Quiz', text: shareText, files: [file] });
                 } else if (navigator.share) {
-                    await navigator.share(shareDataLink);     // Fallback share link
+                    await navigator.share({ title: 'Yogi Soul Quiz', text: shareText, url: window.location.href });
                 } else {
-                    const a = document.createElement('a');   // Desktop download
+                    const a = document.createElement('a');
                     a.href = URL.createObjectURL(blob);
                     a.download = 'yogi-soul-result.png';
                     a.click();
                 }
             } catch (shareErr) {
-                console.warn('Share cancelled or failed:', shareErr);
+                console.warn('Share cancelled:', shareErr);
             }
             setIsCapturing(false);
         }, 'image/png');
 
     } catch (err) {
         console.error('Capture error:', err);
-        // ✅ Fallback — ถ้า capture ล้มเหลวให้ share link แทน
         try {
-            if (navigator.share) {
-                await navigator.share({ title: 'Yogi Soul Quiz', url: window.location.href });
-            }
+            if (navigator.share) await navigator.share({ title: 'Yogi Soul Quiz', url: window.location.href });
         } catch (_) {}
         setIsCapturing(false);
     }
