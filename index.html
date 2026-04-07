@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yogi Personality Quiz | Discover Your Yogi Soul</title>
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yogiquizjohn.vercel.app/" />
     <meta property="og:title" content="Discover Your Yogi Soul 🧘" />
@@ -16,11 +17,13 @@
     <meta name="twitter:title" content="Discover Your Yogi Soul 🧘" />
     <meta name="twitter:description" content="ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ" />
     <meta name="twitter:image" content="https://yogiquizjohn.vercel.app/og-image.png" />
+
     <script src="/_vercel/insights/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- ✅ เพิ่ม html2canvas สำหรับแคปหน้าจอเพื่อแชร์ IG Story -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -38,16 +41,18 @@
             border-bottom: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
+        /* ✅ Loading overlay สำหรับตอน capture */
         .capture-loading {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.5);
             display: flex; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(8px);
+            z-index: 9999; backdrop-filter: blur(4px);
         }
     </style>
 </head>
 <body>
     <div id="root"></div>
+
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
@@ -74,10 +79,24 @@
 
         const UI_TEXT = {
             th: {
-                startBtn: "เริ่มเลย", shareStoryBtn: "แชร์ลง IG / FB", inviteBtn: "ชวนเพื่อนมาเล่น", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ", question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity", created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "คัดลอกลิงก์เรียบร้อย!", capturing: "กำลังเตรียมรูปภาพ...", langName: "ภาษาไทย", flag: "🇹🇭"
+                startBtn: "เริ่มเลย", shareStoryBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อนมาเล่น",
+                restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME",
+                titlePrefix: "Discover Your", titleMain: "Yogi Soul",
+                desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ",
+                question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions",
+                copied: "คัดลอกลิงก์เรียบร้อย!", capturing: "กำลังสร้างรูปภาพ...",
+                langName: "ภาษาไทย", flag: "🇹🇭"
             },
             en: {
-                startBtn: "Start Now", shareStoryBtn: "Share to IG / FB", inviteBtn: "Invite Friends", restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME", titlePrefix: "Discover Your", titleMain: "Yogi Soul", desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.", question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity", created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions", copied: "Link copied!", capturing: "Preparing image...", langName: "English", flag: "🇺🇸"
+                startBtn: "Start Now", shareStoryBtn: "Share Result", inviteBtn: "Invite Friends",
+                restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME",
+                titlePrefix: "Discover Your", titleMain: "Yogi Soul",
+                desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.",
+                question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions",
+                copied: "Link copied!", capturing: "Creating image...",
+                langName: "English", flag: "🇺🇸"
             }
         };
 
@@ -85,7 +104,7 @@
             { id: 1, question: { th: "ช่วงเวลาที่คุณชอบฝึกโยคะมากที่สุดคือช่วงไหน?", en: "When is your ideal time to flow?" }, options: [ { text: { th: "เช้าตรู่ รับแสงอาทิตย์", en: "At dawn, embracing the sunrise" }, score: { warrior: 2, traditionalist: 2 } }, { text: { th: "ช่วงสายๆ หรือบ่ายที่พอมีพลัง", en: "Midday when energy peaks" }, score: { nature: 2, social: 2 } }, { text: { th: "ช่วงเย็นหลังเลิกงาน", en: "Evening to decompress" }, score: { explorer: 2, healing: 2 } }, { text: { th: "ก่อนนอน เพื่อความผ่อนคลาย", en: "Before bed for deep rest" }, score: { zen: 2, spiritual: 2 } } ] },
             { id: 2, question: { th: "สถานที่ฝึกในฝันของคุณเป็นแบบไหน?", en: "What is your dream practice sanctuary?" }, options: [ { text: { th: "สตูดิโอมินิมอล แสงสวยๆ", en: "Minimalist studio with natural light" }, score: { explorer: 2, traditionalist: 1 } }, { text: { th: "กลางสวนหรือริมทะเล", en: "In a garden or by the ocean" }, score: { nature: 3 } }, { text: { th: "ที่บ้าน พื้นที่ส่วนตัว", en: "In my private space at home" }, score: { zen: 2, healing: 1 } }, { text: { th: "ฟิตเนสที่มีอุปกรณ์ครบครัน", en: "A fully equipped high-energy gym" }, score: { warrior: 2, social: 1 } } ] },
             { id: 3, question: { th: "เป้าหมายหลักที่คุณเลือกเล่นโยคะคืออะไร?", en: "What is the primary goal of your practice?" }, options: [ { text: { th: "สร้างความแข็งแรงของกล้ามเนื้อ", en: "Building raw physical strength" }, score: { warrior: 3 } }, { text: { th: "บำบัดจิตใจและคลายเครียด", en: "Mental healing and stress relief" }, score: { healing: 3 } }, { text: { th: "เพิ่มความยืดหยุ่นให้ร่างกาย", en: "Gaining flexibility and mobility" }, score: { traditionalist: 2, nature: 1 } }, { text: { th: "ลองอะไรใหม่ๆ ท้าทายตัวเอง", en: "Challenging my limits and curiosity" }, score: { explorer: 2, social: 1 } } ] },
-            { id: 4, question: { th: "เมื่อเจอท่าที่ยากและท้าทาย คุณมักจะ...", en: "How do you react to a difficult pole?" }, options: [ { text: { th: "สู้ไม่ถอย จนกว่าจะทำได้", en: "Hold it with determination" }, score: { warrior: 2, traditionalist: 1 } }, { text: { th: "ค่อยๆ พยายามตามที่ไหว", en: "Ease in as much as I can" }, score: { nature: 2, zen: 1 } }, { text: { th: "หาเพื่อนช่วยซัพพอร์ต", en: "Ask a friend for support" }, score: { social: 3 } }, { text: { th: "ใช้พร็อพช่วยเพื่อให้ท่าสมบูรณ์", en: "Use props for perfect alignment" }, score: { traditionalist: 2, healing: 1 } } ] },
+            { id: 4, question: { th: "เมื่อเจอท่าที่ยากและท้าทาย คุณมักจะ...", en: "How do you react to a difficult pose?" }, options: [ { text: { th: "สู้ไม่ถอย จนกว่าจะทำได้", en: "Hold it with determination" }, score: { warrior: 2, traditionalist: 1 } }, { text: { th: "ค่อยๆ พยายามตามที่ไหว", en: "Ease in as much as I can" }, score: { nature: 2, zen: 1 } }, { text: { th: "หาเพื่อนช่วยซัพพอร์ต", en: "Ask a friend for support" }, score: { social: 3 } }, { text: { th: "ใช้พร็อพช่วยเพื่อให้ท่าสมบูรณ์", en: "Use props for perfect alignment" }, score: { traditionalist: 2, healing: 1 } } ] },
             { id: 5, question: { th: "ประเภทของเพลงที่คุณชอบเปิดตอนฝึก?", en: "What's the soundtrack to your flow?" }, options: [ { text: { th: "เสียงธรรมชาติ น้ำไหล นกร้อง", en: "Ambient nature (water, birds)" }, score: { nature: 2, zen: 1 } }, { text: { th: "เสียงสวดมนต์หรือ Singing Bowl", en: "Chanting or Singing Bowls" }, score: { spiritual: 3 } }, { text: { th: "เพลงจังหวะสนุกสนาน ปลุกพลัง", en: "Upbeat and energizing rhythms" }, score: { explorer: 2, social: 1 } }, { text: { th: "ความเงียบคือสิ่งที่ดีที่สุด", en: "Silence is the best" }, score: { zen: 2, nature: 1, traditionalist: 2 } } ] },
             { id: 6, question: { th: "สีของชุดโยคะหรือเสื่อที่คุณมักจะเลือกใช้?", en: "What colors dominate your yoga gear?" }, options: [ { text: { th: "สีเอิร์ธโทน น้ำตาล เขียวขี้ม้า", en: "Earth tones (Brown, Olive)" }, score: { nature: 2, spiritual: 1 } }, { text: { th: "สีขาว ครีม หรือสีพาสเทล", en: "White, Cream, or soft Pastels" }, score: { zen: 2, healing: 1 } }, { text: { th: "สีสันสดใส โดดเด่น", en: "Bright, bold, and vibrant colors" }, score: { explorer: 2, social: 1 } }, { text: { th: "สีดำ หรือสีเข้มๆ เท่ๆ", en: "Sleek black or dark aesthetics" }, score: { warrior: 2, traditionalist: 1 } } ] },
             { id: 7, question: { th: "ท่าโยคะที่คุณรู้สึก 'ใช่' ที่ที่สุด?", en: "Which yoga pose feels most like 'You'?" }, options: [ { text: { th: "Savasana (ท่าศพ) - พักผ่อน", en: "Savasana - The ultimate rest" }, score: { healing: 3 } }, { text: { th: "Warrior Pose - พลังมาเต็ม", en: "Warrior Pose - Pure strength" }, score: { warrior: 2, traditionalist: 1 } }, { text: { th: "Tree Pose - สมดุลและนิ่ง", en: "Tree Pose - Balance and roots" }, score: { nature: 2, zen: 1 } }, { text: { th: "Partner Poses - ฝึกกับเพื่อน", en: "Partner Poses - Shared energy" }, score: { social: 3 } } ] },
@@ -116,12 +135,7 @@
 
             const t = UI_TEXT[lang];
 
-            const startQuiz = () => {
-                setStep('quiz');
-                setCurrentQuestion(0);
-                setScores({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 });
-            };
-
+            const startQuiz = () => { setStep('quiz'); setCurrentQuestion(0); setScores({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 }); };
             const backToHome = () => { setStep('landing'); setResult(null); };
 
             const handleAnswer = (score) => {
@@ -137,65 +151,48 @@
                 }
             };
 
-            // ✅ ฟังก์ชันแชร์รูปที่แก้บั๊กมาให้แล้ว
+            // ✅ Share ผลลัพธ์เป็นรูปภาพผ่าน Native Share (รองรับ IG Story)
             const handleShareImage = async () => {
                 if (!resultCardRef.current) return;
                 setIsCapturing(true);
-
                 try {
-                    // รอให้รูปภาพโหลดเสร็จก่อนเริ่ม capture (กันภาพหาย)
-                    const images = resultCardRef.current.getElementsByTagName('img');
-                    await Promise.all(Array.from(images).map(img => {
-                        if (img.complete) return Promise.resolve();
-                        return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
-                    }));
-
-                    // 1. Capture พื้นที่ผลลัพธ์
                     const canvas = await html2canvas(resultCardRef.current, {
-                        useCORS: true,       // สำคัญมากสำหรับรูปจาก Domain อื่น
-                        allowTaint: false,
-                        scale: 2,            // เพิ่มความคมชัด
+                        useCORS: true,
+                        allowTaint: true,
+                        scale: 2,
                         backgroundColor: null,
                         logging: false,
                     });
-
-                    // 2. แปลงเป็น Blob เพื่อส่งให้ Native Share
                     canvas.toBlob(async (blob) => {
-                        if (!blob) { setIsCapturing(false); return; }
-                        
                         const file = new File([blob], 'yogi-soul-result.png', { type: 'image/png' });
-                        const shareText = lang === 'th'
-                            ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณกัน 🧘`
-                            : `I am "${result.title.en}"! Discover your Yogi soul 🧘`;
-
-                        // 3. เรียกใช้งาน Web Share API (สำหรับมือถือ)
-                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                            try {
-                                await navigator.share({
-                                    files: [file],
-                                    title: 'Yogi Soul Quiz',
-                                    text: shareText,
-                                });
-                            } catch (err) {
-                                if (err.name !== 'AbortError') console.error('Share error:', err);
-                            }
+                        const shareData = {
+                            title: 'Yogi Soul Quiz',
+                            text: lang === 'th'
+                                ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 👉 yogiquizjohn.vercel.app`
+                                : `I am "${result.title.en}"! Discover your Yogi soul 👉 yogiquizjohn.vercel.app`,
+                            files: [file],
+                        };
+                        if (navigator.canShare && navigator.canShare(shareData)) {
+                            await navigator.share(shareData);
+                        } else if (navigator.share) {
+                            // fallback: แชร์ link เฉย ๆ ถ้า browser ไม่รองรับ file share
+                            await navigator.share({ title: shareData.title, text: shareData.text, url: window.location.href });
                         } else {
-                            // Fallback สำหรับคอมพิวเตอร์ หรือเบราว์เซอร์ที่ไม่รองรับแชร์ไฟล์
+                            // fallback สุดท้าย: download รูป
                             const a = document.createElement('a');
-                            a.href = URL.createObjectURL(blob);
+                            a.href = canvas.toDataURL('image/png');
                             a.download = 'yogi-soul-result.png';
                             a.click();
-                            alert(lang === 'th' ? "เบราว์เซอร์ไม่รองรับการแชร์โดยตรง ระบบกำลังดาวน์โหลดรูปให้คุณแทน" : "Native share not supported. Image downloaded.");
                         }
-                        setIsCapturing(false);
                     }, 'image/png');
-
                 } catch (err) {
-                    console.error('Capture error:', err);
+                    console.error('Share error:', err);
+                } finally {
                     setIsCapturing(false);
                 }
             };
 
+            // ✅ Share link ชวนเพื่อน
             const handleInvite = async () => {
                 const text = lang === 'th'
                     ? `มาค้นหาจิตวิญญาณ Yogi ของคุณกัน! 🧘 yogiquizjohn.vercel.app`
@@ -209,21 +206,19 @@
             };
 
             useEffect(() => {
-                const handleClickOutside = (e) => {
-                    if (langRef.current && !langRef.current.contains(e.target)) setIsLangOpen(false);
-                };
+                const handleClickOutside = (e) => { if (langRef.current && !langRef.current.contains(e.target)) setIsLangOpen(false); };
                 document.addEventListener("mousedown", handleClickOutside);
                 return () => document.removeEventListener("mousedown", handleClickOutside);
             }, []);
 
             return (
                 <div className="min-h-screen flex flex-col items-center">
-
+                    {/* Loading Overlay */}
                     {isCapturing && (
                         <div className="capture-loading">
                             <div className="text-center text-white">
                                 <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-                                <p className="font-bold text-sm tracking-widest uppercase">{t.capturing}</p>
+                                <p className="font-bold text-sm">{t.capturing}</p>
                             </div>
                         </div>
                     )}
@@ -249,6 +244,7 @@
                         </div>
                     </div>
 
+                    {/* Content */}
                     <div className={`w-full max-w-md min-h-screen flex flex-col relative shadow-xl overflow-hidden transition-all duration-700 ${step === 'landing' ? 'bg-gradient-to-b from-[#10b981] via-[#059669] to-[#06b6d4]' : step === 'result' && result ? result.bg : 'bg-[#fdfaf5]'}`}>
                         <div className="flex-1 overflow-y-auto pb-8">
 
@@ -298,11 +294,17 @@
                             {step === 'result' && result && (
                                 <div className="flex flex-col items-center animate-in fade-in duration-1000 relative min-h-full pb-10">
                                     <Confetti />
+
+                                    {/* ✅ Result Card — ส่วนที่จะถูก capture เป็นรูปเพื่อแชร์ */}
                                     <div ref={resultCardRef} className="w-full px-6 pt-6 pb-8 flex flex-col items-center" style={{ background: result.bgCapture }}>
+                                        {/* Title */}
                                         <h1 className="text-4xl font-black text-white text-outline uppercase tracking-tighter drop-shadow-2xl leading-tight mb-5 text-center">
                                             {String(result.title[lang] || "")}
                                         </h1>
+
+                                        {/* Card */}
                                         <div className="w-full bg-white rounded-[2.5rem] p-5 shadow-2xl border border-white/20 overflow-hidden">
+                                            {/* Icon + Title row */}
                                             <div className="flex items-center gap-3 mb-5">
                                                 <div className="p-3 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm flex-shrink-0">
                                                     <IconRenderer name={result.iconName} className={`w-8 h-8 ${result.iconColor}`} />
@@ -313,24 +315,33 @@
                                                     <p className="text-stone-400 font-bold text-xs mt-0.5">{String(result.subtitle[lang] || "")}</p>
                                                 </div>
                                             </div>
+
+                                            {/* Result Image */}
                                             <div className="w-full aspect-square bg-stone-50 rounded-[2rem] overflow-hidden mb-5 border border-stone-100">
                                                 <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" crossOrigin="anonymous" />
                                             </div>
+
+                                            {/* Description */}
                                             <p className="text-stone-500 font-medium text-sm leading-relaxed italic text-center px-2 mb-2">
                                                 "{String(result.description[lang] || "")}"
                                             </p>
+
+                                            {/* Watermark ใน card */}
                                             <p className="text-stone-300 text-[9px] font-bold uppercase tracking-[0.3em] text-center mt-3">yogiquizjohn.vercel.app</p>
                                         </div>
                                     </div>
 
+                                    {/* ✅ ปุ่ม 2 ปุ่ม แบบ side by side */}
                                     <div className="w-full px-6 mt-6 flex gap-3">
-                                        <button onClick={handleInvite} className="flex-1 py-5 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                                            <IconRenderer name="UserPlus" className="w-6 h-6 text-white" />
-                                            <span className="text-sm font-black leading-tight text-center">{t.inviteBtn}</span>
+                                        {/* แชร์รูป → IG Story */}
+                                        <button onClick={handleShareImage} className="flex-1 py-4 rounded-[1.5rem] bg-white text-[#2c3e50] font-black text-base shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-1">
+                                            <IconRenderer name="ImageUp" className="w-5 h-5 text-[#10b981]" />
+                                            <span className="text-xs">{t.shareStoryBtn}</span>
                                         </button>
-                                        <button onClick={handleShareImage} className="flex-1 py-5 rounded-[1.5rem] bg-white text-[#2c3e50] font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2">
-                                            <IconRenderer name="Share2" className="w-6 h-6 text-[#10b981]" />
-                                            <span className="text-sm font-black leading-tight text-center">{t.shareStoryBtn}</span>
+                                        {/* ชวนเพื่อน → Share link */}
+                                        <button onClick={handleInvite} className="flex-1 py-4 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black text-base shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-1 backdrop-blur-sm">
+                                            <IconRenderer name="UserPlus" className="w-5 h-5 text-white" />
+                                            <span className="text-xs">{t.inviteBtn}</span>
                                         </button>
                                     </div>
 
@@ -338,7 +349,6 @@
                                     <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.3em]">{t.created}</p>
                                 </div>
                             )}
-
                         </div>
                     </div>
                 </div>
