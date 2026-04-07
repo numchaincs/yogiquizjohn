@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yogi Personality Quiz | Discover Your Yogi Soul</title>
-
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yogiquizjohn.vercel.app/" />
     <meta property="og:title" content="Discover Your Yogi Soul 🧘" />
@@ -17,13 +16,11 @@
     <meta name="twitter:title" content="Discover Your Yogi Soul 🧘" />
     <meta name="twitter:description" content="ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ" />
     <meta name="twitter:image" content="https://yogiquizjohn.vercel.app/og-image.png" />
-
     <script src="/_vercel/insights/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- ✅ เพิ่ม html2canvas สำหรับแคปหน้าจอเพื่อแชร์ IG Story -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -41,7 +38,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        /* ✅ Loading overlay สำหรับตอน capture */
         .capture-loading {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.5);
@@ -52,7 +48,6 @@
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
@@ -79,24 +74,42 @@
 
         const UI_TEXT = {
             th: {
-                startBtn: "เริ่มเลย", shareStoryBtn: "แชร์ผลลัพธ์", inviteBtn: "ชวนเพื่อนมาเล่น",
-                restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME",
-                titlePrefix: "Discover Your", titleMain: "Yogi Soul",
+                startBtn: "เริ่มเลย",
+                shareStoryBtn: "แชร์ผลลัพธ์",
+                inviteBtn: "ชวนเพื่อนมาเล่น",
+                restartBtn: "Back to Home",
+                tagline: "PERSONALITY QUIZ GAME",
+                titlePrefix: "Discover Your",
+                titleMain: "Yogi Soul",
                 desc: "ค้นหาตัวตนที่ซ่อนอยู่ผ่านการฝึกโยคะ ตอบคำถาม 8 ข้อ เพื่อค้นพบจิตวิญญาณที่แท้จริงของคุณ",
-                question: "คำถาม", soulTypeLabel: "ตัวตนของคุณคือ...", innerIdentity: "Your Inner Spiritual Identity",
-                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions",
-                copied: "คัดลอกลิงก์เรียบร้อย!", capturing: "กำลังสร้างรูปภาพ...",
-                langName: "ภาษาไทย", flag: "🇹🇭"
+                question: "คำถาม",
+                soulTypeLabel: "ตัวตนของคุณคือ...",
+                innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI",
+                analysis: "8 Personality Analysis Questions",
+                copied: "คัดลอกลิงก์เรียบร้อย!",
+                capturing: "กำลังสร้างรูปภาพ...",
+                langName: "ภาษาไทย",
+                flag: "🇹🇭"
             },
             en: {
-                startBtn: "Start Now", shareStoryBtn: "Share Result", inviteBtn: "Invite Friends",
-                restartBtn: "Back to Home", tagline: "PERSONALITY QUIZ GAME",
-                titlePrefix: "Discover Your", titleMain: "Yogi Soul",
+                startBtn: "Start Now",
+                shareStoryBtn: "Share Result",
+                inviteBtn: "Invite Friends",
+                restartBtn: "Back to Home",
+                tagline: "PERSONALITY QUIZ GAME",
+                titlePrefix: "Discover Your",
+                titleMain: "Yogi Soul",
                 desc: "Unveil your true essence through the art of yoga. Answer 8 questions to discover your inner spiritual identity.",
-                question: "Question", soulTypeLabel: "Your Soul Type is...", innerIdentity: "Your Inner Spiritual Identity",
-                created: "Created by JOHN LIZ YOGI", analysis: "8 Personality Analysis Questions",
-                copied: "Link copied!", capturing: "Creating image...",
-                langName: "English", flag: "🇺🇸"
+                question: "Question",
+                soulTypeLabel: "Your Soul Type is...",
+                innerIdentity: "Your Inner Spiritual Identity",
+                created: "Created by JOHN LIZ YOGI",
+                analysis: "8 Personality Analysis Questions",
+                copied: "Link copied!",
+                capturing: "Creating image...",
+                langName: "English",
+                flag: "🇺🇸"
             }
         };
 
@@ -112,14 +125,14 @@
         ];
 
         const RESULTS = {
-            zen: { id: 'zen', title: { th: "The Zen Master", en: "The Zen Master" }, subtitle: { th: "ผู้แสวงหาความสงบภายใน", en: "The Inner Peace Seeker" }, bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", bgCapture: "linear-gradient(to bottom, #4f46e5, #7c3aed, #a855f7)", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง การฝึกของคุณเปรียบเสมือนการทำสมาธิที่เคลื่อนไหวได้", en: "You prioritize breath and mindfulness above all. Your practice is a moving meditation focusing on serenity." }, iconName: "Moon", iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
-            warrior: { id: 'warrior', title: { th: "The Power Warrior", en: "The Power Warrior" }, subtitle: { th: "นักรบผู้แข็งแกร่ง", en: "The Strength Warrior" }, bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", bgCapture: "linear-gradient(to bottom, #f97316, #ea580c, #dc2626)", description: { th: "คุณรักความท้าทายและการมีวินัย การฝึกโยคะของคุณคือการสร้างพลังงานและการก้าวข้ามขีดจำกัดของร่างกาย", en: "You thrive on challenge and discipline, pushing physical boundaries to build raw energy." }, iconName: "Flame", iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
-            nature: { id: 'nature', title: { th: "The Nature Seeker", en: "The Nature Seeker" }, subtitle: { th: "ผู้หลงรักธรรมชาติ", en: "The Earth-Bound Yogi" }, bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", bgCapture: "linear-gradient(to bottom, #10b981, #059669, #047857)", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบความรู้สึกที่เท้าสัมผัสพื้นหญ้าและลมหายใจที่รับอากาศบริสุทธิ์", en: "You are deeply rooted in nature, cherishing the connection between the earth and your breath." }, iconName: "Leaf", iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
-            explorer: { id: 'explorer', title: { th: "The Modern Explorer", en: "The Modern Explorer" }, subtitle: { th: "นักสำรวจโยคะสมัยใหม่", en: "The Avant-Garde Yogi" }, bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", bgCapture: "linear-gradient(to bottom, #f43f5e, #e11d48, #be123c)", description: { th: "คุณชอบความแปลกใหม่และไม่ยึดติดกับกรอบเดิมๆ พร้อมจะพุ่งตัวเข้าไปลองโยคะแนวใหม่ๆ เสมอ", en: "You love novelty and breaking conventions, always searching for new experiences on the mat." }, iconName: "Sparkles", iconColor: "text-pink-500", imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
-            healing: { id: 'healing', title: { th: "The Healing Soul", en: "The Healing Soul" }, subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ", en: "The Restorative Healer" }, bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", bgCapture: "linear-gradient(to bottom, #ec4899, #db2777, #9d174d)", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู คุณใช้โยคะเพื่อบำบัดความเหนื่อยล้าและสร้างพื้นที่ปลอดภัยให้ตัวเอง", en: "Your practice is about nurturing and recovery, using yoga to heal fatigue and create a safe space." }, iconName: "Heart", iconColor: "text-rose-400", imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
-            spiritual: { id: 'spiritual', title: { th: "The Spiritual Guide", en: "The Spiritual Guide" }, subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ", en: "The Mystical Spirit" }, bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", bgCapture: "linear-gradient(to bottom, #f59e0b, #d97706, #b45309)", description: { th: "คุณมองโยคะเป็นมากกว่าการออกกำลังกาย แต่เป็นการเชื่อมต่อกับจักรวาล จักระ และพลังงานภายใน", en: "You see yoga as a connection to the universe, focusing on chakras and spiritual energy." }, iconName: "Star", iconColor: "text-amber-400", imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
-            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined Traditionalist", en: "The Disciplined Traditionalist" }, subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม", en: "The Classic Hatha Yogi" }, bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", bgCapture: "linear-gradient(to bottom, #64748b, #475569, #1e293b)", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทาง (Alignment) และการฝึกฝนตามแบบแผนดั้งเดิมอย่างเคร่งครัด", en: "You prioritize alignment and strictly follow traditional methods with deep respect for lineage." }, iconName: "Anchor", iconColor: "text-slate-500", imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
-            social: { id: 'social', title: { th: "The Social Flow-er", en: "The Social Flow-er" }, subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน", en: "The Community Connecter" }, bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", bgCapture: "linear-gradient(to bottom, #06b6d4, #0891b2, #0369a1)", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น คุณแชร์พลังงานและความสุขผ่านการฝึกแบบกลุ่ม", en: "You shine brightest when practicing with others, sharing energy and joy through community flow." }, iconName: "Users", iconColor: "text-cyan-500", imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
+            zen:            { id: 'zen',            title: { th: "The Zen Master",                  en: "The Zen Master" },                  subtitle: { th: "ผู้แสวงหาความสงบภายใน",      en: "The Inner Peace Seeker" },    bg: "bg-gradient-to-b from-[#4f46e5] via-[#7c3aed] to-[#a855f7]", bgCapture: "linear-gradient(to bottom, #4f46e5, #7c3aed, #a855f7)", description: { th: "คุณคือ Yogi ที่ให้ความสำคัญกับลมหายใจและสมาธิเป็นอันดับหนึ่ง การฝึกของคุณเปรียบเสมือนการทำสมาธิที่เคลื่อนไหวได้",                                   en: "You prioritize breath and mindfulness above all. Your practice is a moving meditation focusing on serenity." },           iconName: "Moon",     iconColor: "text-indigo-500", imageUrl: "https://i.ibb.co/mCPjVvzr/yogi-zen.png" },
+            warrior:        { id: 'warrior',        title: { th: "The Power Warrior",               en: "The Power Warrior" },               subtitle: { th: "นักรบผู้แข็งแกร่ง",           en: "The Strength Warrior" },      bg: "bg-gradient-to-b from-[#f97316] via-[#ea580c] to-[#dc2626]", bgCapture: "linear-gradient(to bottom, #f97316, #ea580c, #dc2626)", description: { th: "คุณรักความท้าทายและการมีวินัย การฝึกโยคะของคุณคือการสร้างพลังงานและการก้าวข้ามขีดจำกัดของร่างกาย",                                                  en: "You thrive on challenge and discipline, pushing physical boundaries to build raw energy." },                             iconName: "Flame",    iconColor: "text-orange-500", imageUrl: "https://i.ibb.co/ycxc7xHK/yogi-warrior.png" },
+            nature:         { id: 'nature',         title: { th: "The Nature Seeker",               en: "The Nature Seeker" },               subtitle: { th: "ผู้หลงรักธรรมชาติ",           en: "The Earth-Bound Yogi" },      bg: "bg-gradient-to-b from-[#10b981] via-[#059669] to-[#047857]", bgCapture: "linear-gradient(to bottom, #10b981, #059669, #047857)", description: { th: "คุณคือ Yogi ที่มีความเป็นธรรมชาติสูงมาก ชอบความรู้สึกที่เท้าสัมผัสพื้นหญ้าและลมหายใจที่รับอากาศบริสุทธิ์",                                      en: "You are deeply rooted in nature, cherishing the connection between the earth and your breath." },                       iconName: "Leaf",     iconColor: "text-emerald-500", imageUrl: "https://i.ibb.co/W4JrvTJb/yogi-nature.png" },
+            explorer:       { id: 'explorer',       title: { th: "The Modern Explorer",             en: "The Modern Explorer" },             subtitle: { th: "นักสำรวจโยคะสมัยใหม่",        en: "The Avant-Garde Yogi" },      bg: "bg-gradient-to-b from-[#f43f5e] via-[#e11d48] to-[#be123c]", bgCapture: "linear-gradient(to bottom, #f43f5e, #e11d48, #be123c)", description: { th: "คุณชอบความแปลกใหม่และไม่ยึดติดกับกรอบเดิมๆ พร้อมจะพุ่งตัวเข้าไปลองโยคะแนวใหม่ๆ เสมอ",                                                          en: "You love novelty and breaking conventions, always searching for new experiences on the mat." },                          iconName: "Sparkles", iconColor: "text-pink-500",    imageUrl: "https://i.ibb.co/spvqrxc8/yogi-explorer.png" },
+            healing:        { id: 'healing',        title: { th: "The Healing Soul",                en: "The Healing Soul" },                subtitle: { th: "ผู้เยียวยาร่างกายและจิตใจ",   en: "The Restorative Healer" },    bg: "bg-gradient-to-b from-[#ec4899] via-[#db2777] to-[#9d174d]", bgCapture: "linear-gradient(to bottom, #ec4899, #db2777, #9d174d)", description: { th: "การฝึกของคุณคือการถนอมและฟื้นฟู คุณใช้โยคะเพื่อบำบัดความเหนื่อยล้าและสร้างพื้นที่ปลอดภัยให้ตัวเอง",                                             en: "Your practice is about nurturing and recovery, using yoga to heal fatigue and create a safe space." },                  iconName: "Heart",    iconColor: "text-rose-400",   imageUrl: "https://i.ibb.co/prRdCYT7/yogi-healing.png" },
+            spiritual:      { id: 'spiritual',      title: { th: "The Spiritual Guide",             en: "The Spiritual Guide" },             subtitle: { th: "ผู้เชื่อมต่อกับจิตวิญญาณ",   en: "The Mystical Spirit" },       bg: "bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309]", bgCapture: "linear-gradient(to bottom, #f59e0b, #d97706, #b45309)", description: { th: "คุณมองโยคะเป็นมากกว่าการออกกำลังกาย แต่เป็นการเชื่อมต่อกับจักรวาล จักระ และพลังงานภายใน",                                                       en: "You see yoga as a connection to the universe, focusing on chakras and spiritual energy." },                              iconName: "Star",     iconColor: "text-amber-400",  imageUrl: "https://i.ibb.co/q33QDWKL/yogi-spiritual.png" },
+            traditionalist: { id: 'traditionalist', title: { th: "The Disciplined Traditionalist",  en: "The Disciplined Traditionalist" },  subtitle: { th: "ผู้อนุรักษ์แบบแผนดั้งเดิม",  en: "The Classic Hatha Yogi" },    bg: "bg-gradient-to-b from-[#64748b] via-[#475569] to-[#1e293b]", bgCapture: "linear-gradient(to bottom, #64748b, #475569, #1e293b)", description: { th: "คุณให้ความสำคัญกับความถูกต้องของท่าทาง (Alignment) และการฝึกฝนตามแบบแผนดั้งเดิมอย่างเคร่งครัด",                                               en: "You prioritize alignment and strictly follow traditional methods with deep respect for lineage." },                      iconName: "Anchor",   iconColor: "text-slate-500",  imageUrl: "https://i.ibb.co/Z6kfsh3B/yogi_traditionalist.png" },
+            social:         { id: 'social',         title: { th: "The Social Flow-er",              en: "The Social Flow-er" },              subtitle: { th: "ผู้เติมพลังผ่านกลุ่มเพื่อน",  en: "The Community Connecter" },   bg: "bg-gradient-to-b from-[#06b6d4] via-[#0891b2] to-[#0369a1]", bgCapture: "linear-gradient(to bottom, #06b6d4, #0891b2, #0369a1)", description: { th: "คุณจะเปล่งประกายที่สุดเมื่อได้ฝึกร่วมกับผู้อื่น คุณแชร์พลังงานและความสุขผ่านการฝึกแบบกลุ่ม",                                                    en: "You shine brightest when practicing with others, sharing energy and joy through community flow." },                      iconName: "Users",    iconColor: "text-cyan-500",   imageUrl: "https://i.ibb.co/ty6MVxJ/yogi-social.png" }
         };
 
         function App() {
@@ -135,7 +148,12 @@
 
             const t = UI_TEXT[lang];
 
-            const startQuiz = () => { setStep('quiz'); setCurrentQuestion(0); setScores({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 }); };
+            const startQuiz = () => {
+                setStep('quiz');
+                setCurrentQuestion(0);
+                setScores({ zen: 0, warrior: 0, nature: 0, explorer: 0, healing: 0, spiritual: 0, traditionalist: 0, social: 0 });
+            };
+
             const backToHome = () => { setStep('landing'); setResult(null); };
 
             const handleAnswer = (score) => {
@@ -151,7 +169,7 @@
                 }
             };
 
-            // ✅ Share ผลลัพธ์เป็นรูปภาพผ่าน Native Share (รองรับ IG Story)
+            // ✅ Capture เฉพาะ card (ไม่มีปุ่ม) แล้ว share native iOS/Android
             const handleShareImage = async () => {
                 if (!resultCardRef.current) return;
                 setIsCapturing(true);
@@ -162,37 +180,41 @@
                         scale: 2,
                         backgroundColor: null,
                         logging: false,
+                        imageTimeout: 8000,
                     });
+
                     canvas.toBlob(async (blob) => {
+                        if (!blob) return;
                         const file = new File([blob], 'yogi-soul-result.png', { type: 'image/png' });
-                        const shareData = {
-                            title: 'Yogi Soul Quiz',
-                            text: lang === 'th'
-                                ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 👉 yogiquizjohn.vercel.app`
-                                : `I am "${result.title.en}"! Discover your Yogi soul 👉 yogiquizjohn.vercel.app`,
-                            files: [file],
-                        };
-                        if (navigator.canShare && navigator.canShare(shareData)) {
-                            await navigator.share(shareData);
+                        const shareText = lang === 'th'
+                            ? `ฉันคือ "${result.title.th}"! มาค้นหาจิตวิญญาณ Yogi ของคุณ 🧘 yogiquizjohn.vercel.app`
+                            : `I am "${result.title.en}"! Discover your Yogi soul 🧘 yogiquizjohn.vercel.app`;
+
+                        const shareDataWithFile = { title: 'Yogi Soul Quiz', text: shareText, files: [file] };
+                        const shareDataLink = { title: 'Yogi Soul Quiz', text: shareText, url: window.location.href };
+
+                        if (navigator.canShare && navigator.canShare(shareDataWithFile)) {
+                            // iOS / Android — share พร้อมรูปภาพ
+                            await navigator.share(shareDataWithFile);
                         } else if (navigator.share) {
-                            // fallback: แชร์ link เฉย ๆ ถ้า browser ไม่รองรับ file share
-                            await navigator.share({ title: shareData.title, text: shareData.text, url: window.location.href });
+                            // Fallback — share link
+                            await navigator.share(shareDataLink);
                         } else {
-                            // fallback สุดท้าย: download รูป
+                            // Desktop fallback — download รูป
                             const a = document.createElement('a');
-                            a.href = canvas.toDataURL('image/png');
+                            a.href = URL.createObjectURL(blob);
                             a.download = 'yogi-soul-result.png';
                             a.click();
                         }
+                        setIsCapturing(false);
                     }, 'image/png');
                 } catch (err) {
                     console.error('Share error:', err);
-                } finally {
                     setIsCapturing(false);
                 }
             };
 
-            // ✅ Share link ชวนเพื่อน
+            // ✅ ชวนเพื่อน — share link
             const handleInvite = async () => {
                 const text = lang === 'th'
                     ? `มาค้นหาจิตวิญญาณ Yogi ของคุณกัน! 🧘 yogiquizjohn.vercel.app`
@@ -206,13 +228,16 @@
             };
 
             useEffect(() => {
-                const handleClickOutside = (e) => { if (langRef.current && !langRef.current.contains(e.target)) setIsLangOpen(false); };
+                const handleClickOutside = (e) => {
+                    if (langRef.current && !langRef.current.contains(e.target)) setIsLangOpen(false);
+                };
                 document.addEventListener("mousedown", handleClickOutside);
                 return () => document.removeEventListener("mousedown", handleClickOutside);
             }, []);
 
             return (
                 <div className="min-h-screen flex flex-col items-center">
+
                     {/* Loading Overlay */}
                     {isCapturing && (
                         <div className="capture-loading">
@@ -244,7 +269,7 @@
                         </div>
                     </div>
 
-                    {/* Content */}
+                    {/* Content Container */}
                     <div className={`w-full max-w-md min-h-screen flex flex-col relative shadow-xl overflow-hidden transition-all duration-700 ${step === 'landing' ? 'bg-gradient-to-b from-[#10b981] via-[#059669] to-[#06b6d4]' : step === 'result' && result ? result.bg : 'bg-[#fdfaf5]'}`}>
                         <div className="flex-1 overflow-y-auto pb-8">
 
@@ -295,16 +320,12 @@
                                 <div className="flex flex-col items-center animate-in fade-in duration-1000 relative min-h-full pb-10">
                                     <Confetti />
 
-                                    {/* ✅ Result Card — ส่วนที่จะถูก capture เป็นรูปเพื่อแชร์ */}
+                                    {/* ✅ เฉพาะส่วนนี้ถูก capture — ไม่มีปุ่ม */}
                                     <div ref={resultCardRef} className="w-full px-6 pt-6 pb-8 flex flex-col items-center" style={{ background: result.bgCapture }}>
-                                        {/* Title */}
                                         <h1 className="text-4xl font-black text-white text-outline uppercase tracking-tighter drop-shadow-2xl leading-tight mb-5 text-center">
                                             {String(result.title[lang] || "")}
                                         </h1>
-
-                                        {/* Card */}
                                         <div className="w-full bg-white rounded-[2.5rem] p-5 shadow-2xl border border-white/20 overflow-hidden">
-                                            {/* Icon + Title row */}
                                             <div className="flex items-center gap-3 mb-5">
                                                 <div className="p-3 bg-stone-50 rounded-2xl border border-stone-100 shadow-sm flex-shrink-0">
                                                     <IconRenderer name={result.iconName} className={`w-8 h-8 ${result.iconColor}`} />
@@ -315,33 +336,32 @@
                                                     <p className="text-stone-400 font-bold text-xs mt-0.5">{String(result.subtitle[lang] || "")}</p>
                                                 </div>
                                             </div>
-
-                                            {/* Result Image */}
                                             <div className="w-full aspect-square bg-stone-50 rounded-[2rem] overflow-hidden mb-5 border border-stone-100">
                                                 <img src={result.imageUrl} alt="Result" className="w-full h-full object-cover" crossOrigin="anonymous" />
                                             </div>
-
-                                            {/* Description */}
                                             <p className="text-stone-500 font-medium text-sm leading-relaxed italic text-center px-2 mb-2">
                                                 "{String(result.description[lang] || "")}"
                                             </p>
-
-                                            {/* Watermark ใน card */}
                                             <p className="text-stone-300 text-[9px] font-bold uppercase tracking-[0.3em] text-center mt-3">yogiquizjohn.vercel.app</p>
                                         </div>
                                     </div>
 
-                                    {/* ✅ ปุ่ม 2 ปุ่ม แบบ side by side */}
+                                    {/* ✅ ปุ่มอยู่นอก ref — ไม่ติดในรูป */}
+                                    {/* ซ้าย: ชวนเพื่อน | ขวา: แชร์ผลลัพธ์ */}
                                     <div className="w-full px-6 mt-6 flex gap-3">
-                                        {/* แชร์รูป → IG Story */}
-                                        <button onClick={handleShareImage} className="flex-1 py-4 rounded-[1.5rem] bg-white text-[#2c3e50] font-black text-base shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-1">
-                                            <IconRenderer name="ImageUp" className="w-5 h-5 text-[#10b981]" />
-                                            <span className="text-xs">{t.shareStoryBtn}</span>
+                                        <button
+                                            onClick={handleInvite}
+                                            className="flex-1 py-5 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm"
+                                        >
+                                            <IconRenderer name="UserPlus" className="w-6 h-6 text-white" />
+                                            <span className="text-sm font-black leading-tight text-center">{t.inviteBtn}</span>
                                         </button>
-                                        {/* ชวนเพื่อน → Share link */}
-                                        <button onClick={handleInvite} className="flex-1 py-4 rounded-[1.5rem] bg-white/20 border border-white/40 text-white font-black text-base shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-1 backdrop-blur-sm">
-                                            <IconRenderer name="UserPlus" className="w-5 h-5 text-white" />
-                                            <span className="text-xs">{t.inviteBtn}</span>
+                                        <button
+                                            onClick={handleShareImage}
+                                            className="flex-1 py-5 rounded-[1.5rem] bg-white text-[#2c3e50] font-black shadow-xl active:scale-95 transition-all flex flex-col items-center justify-center gap-2"
+                                        >
+                                            <IconRenderer name="ImageUp" className="w-6 h-6 text-[#10b981]" />
+                                            <span className="text-sm font-black leading-tight text-center">{t.shareStoryBtn}</span>
                                         </button>
                                     </div>
 
@@ -349,6 +369,7 @@
                                     <p className="text-white/30 text-[9px] font-bold uppercase tracking-[0.3em]">{t.created}</p>
                                 </div>
                             )}
+
                         </div>
                     </div>
                 </div>
